@@ -49,8 +49,8 @@ export default function AdminAdmissionsPage() {
         body: JSON.stringify({
           leadId: lead.id,
           courseId: lead.courseId,
-          totalFee: 27500,
-          paidFee: 27500,
+          totalFee: lead.course?.discountFeeInr || lead.course?.feeInr || 9500,
+          paidFee: lead.course?.discountFeeInr || lead.course?.feeInr || 9500,
         }),
       });
 

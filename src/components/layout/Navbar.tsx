@@ -149,7 +149,7 @@ export function Navbar() {
                     href="/courses"
                     className="text-xs font-bold text-mcoa-amethyst hover:text-mcoa-midnight underline"
                   >
-                    View All 7+ Specialized Programs →
+                    View All 11+ Specialized Programs →
                   </Link>
                 </div>
               </div>
@@ -238,7 +238,7 @@ export function Navbar() {
               className="py-2 border-b border-gray-100 flex items-center justify-between"
             >
               <span>All Courses & Certifications</span>
-              <span className="text-xs text-mcoa-gold font-bold">7+ Programs</span>
+              <span className="text-xs text-mcoa-gold font-bold">11+ Programs</span>
             </Link>
             <Link
               href="/courses/advanced-medical-coding"

@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     }
 
     const course = await prisma.course.findUnique({ where: { id: targetCourseId } });
-    const feeToCharge = totalFee || course?.discountFeeInr || course?.feeInr || 27500;
+    const feeToCharge = totalFee || course?.discountFeeInr || course?.feeInr || 9500;
 
     const enrollment = await prisma.enrollment.create({
       data: {

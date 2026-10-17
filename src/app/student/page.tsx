@@ -274,7 +274,7 @@ export default async function StudentDashboardPage() {
           </div>
           <div>
             <div className="font-montserrat font-bold text-sm text-mcoa-midnight">Fee Receipts & Invoices</div>
-            <div className="text-xs text-gray-500 mt-0.5">View your ₹27,500 payment confirmation and tax invoices.</div>
+            <div className="text-xs text-gray-500 mt-0.5">View your course fee payment confirmation and tax invoices.</div>
           </div>
         </Link>
       </div>

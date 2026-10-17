@@ -16,7 +16,7 @@ async function main() {
       state: "Tamil Nadu",
       postalCode: "600100",
       phone: "+91 8072020716",
-      email: "chennai@medicalcodingofficersacademy.com",
+      email: "medicalcodingofficers@gmail.com",
       isHeadOffice: true,
     },
     {
@@ -28,7 +28,7 @@ async function main() {
       state: "Tamil Nadu",
       postalCode: "621212",
       phone: "+91 8072020716",
-      email: "perambalur@medicalcodingofficersacademy.com",
+      email: "medicalcodingofficers@gmail.com",
       isHeadOffice: false,
     },
     {
@@ -40,7 +40,7 @@ async function main() {
       state: "Tamil Nadu",
       postalCode: "641024",
       phone: "+91 8072020716",
-      email: "coimbatore@medicalcodingofficersacademy.com",
+      email: "medicalcodingofficers@gmail.com",
       isHeadOffice: false,
     },
     {
@@ -52,7 +52,7 @@ async function main() {
       state: "Tamil Nadu",
       postalCode: "600001",
       phone: "+91 8072020716",
-      email: "karaikudi@medicalcodingofficersacademy.com",
+      email: "medicalcodingofficers@gmail.com",
       isHeadOffice: false,
     },
   ];
@@ -104,9 +104,9 @@ async function main() {
       category: "Medical Coding",
       summary: "Our flagship comprehensive program covering Medical Terminology, Anatomy & Physiology, ICD-10-CM, CPT, and HCPCS Level II with real-world chart auditing.",
       description: "The Advanced Medical Coding Masterclass at MCOA is an intensive, career-transforming curriculum engineered by Dr. Jeevanantham Mariappan. Built for life sciences, pharmacy, nursing, and healthcare graduates, this program bridges clinical knowledge with international revenue cycle standards.",
-      duration: "3 Months (240 Hours)",
-      feeInr: 32000,
-      discountFeeInr: 27500,
+      duration: "3 Months",
+      feeInr: 15000,
+      discountFeeInr: 9500,
       certificationTrack: "AAPC CPC / AHIMA Ready",
       trainingModes: JSON.stringify(["Classroom", "Live Interactive Online", "Hybrid Flex"]),
       eligibility: JSON.stringify([
@@ -168,9 +168,9 @@ async function main() {
       category: "Certification Prep",
       summary: "Dedicated AAPC CPC® exam training designed to clear the certification in your first attempt with time management drills and 1,500+ practice questions.",
       description: "The AAPC Certified Professional Coder (CPC) credential is the gold standard in outpatient medical coding worldwide. MCOA's targeted preparation course provides deep-focus speed drills, guideline cross-indexing, code elimination techniques, and five full-length mock examinations.",
-      duration: "2 Months (160 Hours)",
-      feeInr: 28000,
-      discountFeeInr: 23500,
+      duration: "3 Months",
+      feeInr: 25000,
+      discountFeeInr: 14500,
       certificationTrack: "AAPC CPC® Credential",
       trainingModes: JSON.stringify(["Live Online Weekend & Evening", "Classroom Intensive"]),
       eligibility: JSON.stringify([
@@ -207,9 +207,9 @@ async function main() {
       category: "Certification Prep",
       summary: "Advanced AHIMA CCS® certification program focusing on ICD-10-PCS hospital inpatient procedure coding, POA indicators, and MS-DRG grouping.",
       description: "The Certified Coding Specialist (CCS) credential from AHIMA demonstrates mastery in hospital inpatient coding. This intensive course teaches students the complex root operation tables of ICD-10-PCS, inpatient principal diagnosis sequencing, and MS-DRG grouping.",
-      duration: "2.5 Months (180 Hours)",
-      feeInr: 35000,
-      discountFeeInr: 29500,
+      duration: "3 Months",
+      feeInr: 25000,
+      discountFeeInr: 14500,
       certificationTrack: "AHIMA CCS® Credential",
       trainingModes: JSON.stringify(["Live Online", "Classroom Weekend"]),
       eligibility: JSON.stringify(["Prior knowledge of ICD-10-CM diagnosis coding or CPC holders"]),
@@ -240,9 +240,9 @@ async function main() {
       category: "Specialty Coding",
       summary: "Master Hierarchical Condition Categories (HCC), Medicare Advantage risk score modeling, and chronic condition documentation compliance.",
       description: "Risk Adjustment coding is one of the fastest growing sectors in international healthcare billing. MCOA's CRC course instructs students on CMS-HCC risk adjustment methodology, RAF scores, and quality audits.",
-      duration: "1.5 Months (120 Hours)",
-      feeInr: 25000,
-      discountFeeInr: 21000,
+      duration: "2.5 Months",
+      feeInr: 20000,
+      discountFeeInr: 14500,
       certificationTrack: "AAPC CRC® Credential",
       trainingModes: JSON.stringify(["Live Online Interactive", "Hybrid"]),
       eligibility: JSON.stringify(["Life sciences graduates, CPC certified coders, or healthcare data analysts"]),
@@ -269,9 +269,9 @@ async function main() {
       category: "Specialty Coding",
       summary: "Elevate your career into healthcare auditing, fraud prevention, OIG compliance plans, and statistical sampling of medical records.",
       description: "Designed for experienced medical coders and clinical documentation specialists looking to lead audit teams.",
-      duration: "2 Months (140 Hours)",
-      feeInr: 32000,
-      discountFeeInr: 28000,
+      duration: "3 Months",
+      feeInr: 25000,
+      discountFeeInr: 15500,
       certificationTrack: "AAPC CPMA® Credential",
       trainingModes: JSON.stringify(["Live Online Weekend"]),
       eligibility: JSON.stringify(["Minimum 1-2 years coding experience or CPC/CCS credential holder"]),
@@ -298,7 +298,7 @@ async function main() {
       category: "Specialty Coding",
       summary: "Master outpatient office visits, inpatient admissions, emergency department charts, and consultation coding under current AMA/CMS guidelines.",
       description: "Deep dive into 2021 & 2023 AMA/CMS Evaluation and Management revisions with MDM problem, data, and risk calculations.",
-      duration: "4 Weeks (40 Hours)",
+      duration: "4 Weeks",
       feeInr: 12000,
       discountFeeInr: 9500,
       certificationTrack: "Specialty Practice Certificate",
@@ -327,9 +327,9 @@ async function main() {
       category: "Billing & Compliance",
       summary: "End-to-end revenue cycle management from patient eligibility, charge entry, claim submission (CMS-1500 / UB-04), to AR follow-up and appeals.",
       description: "Equips students with comprehensive operational expertise in US healthcare reimbursement, CARC/RARC codes, and payer appeals.",
-      duration: "6 Weeks (60 Hours)",
+      duration: "2.5 Months",
       feeInr: 16000,
-      discountFeeInr: 13500,
+      discountFeeInr: 12500,
       certificationTrack: "MCOA RCM Professional Certificate",
       trainingModes: JSON.stringify(["Classroom", "Live Online"]),
       eligibility: JSON.stringify(["Graduates of any discipline seeking rapid entry into US healthcare revenue cycle operations"]),
@@ -347,6 +347,150 @@ async function main() {
         {
           question: "Can arts/commerce graduates apply?",
           answer: "Yes, medical billing is ideal for graduates from any educational background."
+        }
+      ]),
+      isFeatured: false,
+      isPublished: true,
+    },
+    {
+      id: "ambulatory-surgery-center-coding",
+      slug: "ambulatory-surgery-center-coding",
+      title: "Ambulatory Surgery Center Coding",
+      shortCode: "ASC-CODING",
+      category: "Specialty Coding",
+      summary: "Specialized training in outpatient facility coding, CMS ASC payment indicators, CPT modifiers, and operative report analysis for same-day surgical centers.",
+      description: "Master the complexities of ambulatory surgical center (ASC) coding and reimbursement. Covers CMS payment groups, packaging rules, revenue codes, modifier usage, and real operative reports.",
+      duration: "1 Month",
+      feeInr: 12000,
+      discountFeeInr: 9500,
+      certificationTrack: "AAPC CASCC™ / Specialty Ready",
+      trainingModes: JSON.stringify(["Live Online Interactive", "Classroom Intensive", "Self-Paced Hybrid"]),
+      eligibility: JSON.stringify(["Certified coders (CPC, CCS), life sciences graduates, or outpatient billing specialists."]),
+      syllabus: JSON.stringify([
+        {
+          moduleTitle: "Module 1: ASC Payment System & CMS Guidelines",
+          topics: ["ASC-covered procedures list", "Packaging rules for implants/supplies", "Modifiers 73, 74, 50, 59"]
+        },
+        {
+          moduleTitle: "Module 2: High-Volume Surgical Specialty Chart Review",
+          topics: ["Ophthalmology (Cataracts & IOL)", "Orthopedic arthroscopy & pain injections", "Gastroenterology colonoscopy"]
+        }
+      ]),
+      faqs: JSON.stringify([
+        {
+          question: "What certification does this prepare for?",
+          answer: "Prepares you for the AAPC Certified Ambulatory Surgical Center Coder (CASCC™) credential."
+        }
+      ]),
+      isFeatured: false,
+      isPublished: true,
+    },
+    {
+      id: "hierarchical-condition-category-coding",
+      slug: "hierarchical-condition-category-coding",
+      title: "Hierarchical Condition Category (HCC) Coding",
+      shortCode: "HCC-CODING",
+      category: "Specialty Coding",
+      summary: "Master CMS-HCC and HHS-HCC risk adjustment models, Risk Adjustment Factor (RAF) scoring, MEAT documentation criteria, and RADV audit compliance.",
+      description: "Equips medical coders with high-demand risk adjustment expertise for US Medicare Advantage and ACA health plans. Covers V24 vs V28, chronic conditions, and RADV audits.",
+      duration: "2 Months",
+      feeInr: 12500,
+      discountFeeInr: 9500,
+      certificationTrack: "AAPC CRC® / Risk Adjustment Pro",
+      trainingModes: JSON.stringify(["Live Interactive Online", "Classroom Weekend", "Hybrid Flex"]),
+      eligibility: JSON.stringify(["Life sciences, pharmacy, nursing graduates, CPC certified coders, or healthcare data analysts."]),
+      syllabus: JSON.stringify([
+        {
+          moduleTitle: "Module 1: Risk Adjustment Models & RAF Scoring",
+          topics: ["CMS-HCC V24 vs V28", "Demographic factors and disease interactions", "Suspect condition algorithms"]
+        },
+        {
+          moduleTitle: "Module 2: Clinical Chronic Conditions & MEAT Documentation",
+          topics: ["Diabetes manifestations", "CKD stages & hypertension", "MEAT criteria (Monitor, Evaluate, Assess, Treat)"]
+        },
+        {
+          moduleTitle: "Module 3: RADV Audits & Documentation",
+          topics: ["CMS RADV audit methodology", "Provider queries", "Annual wellness visit recaptures"]
+        }
+      ]),
+      faqs: JSON.stringify([
+        {
+          question: "Are remote work opportunities available for HCC coders?",
+          answer: "Yes, HCC risk adjustment coders are among the most sought-after professionals for offshore and work-from-home projects."
+        }
+      ]),
+      isFeatured: false,
+      isPublished: true,
+    },
+    {
+      id: "home-health-coding",
+      slug: "home-health-coding",
+      title: "Home Health Coding",
+      shortCode: "HHC-CODING",
+      category: "Specialty Coding",
+      summary: "Master home health diagnosis coding under the Patient-Driven Groupings Model (PDGM), OASIS-E assessment item matching, and plan of care compliance.",
+      description: "Comprehensive curriculum covering diagnostic sequencing under CMS Patient-Driven Groupings Model (PDGM), OASIS-E clinical item guidance, primary diagnosis assignment, and comorbidity adjustments.",
+      duration: "1.5 Months",
+      feeInr: 15000,
+      discountFeeInr: 12500,
+      certificationTrack: "BCHH-C / OASIS-E Ready",
+      trainingModes: JSON.stringify(["Live Online Interactive", "Self-Paced Hybrid"]),
+      eligibility: JSON.stringify(["Coders with basic ICD-10-CM knowledge, nurses, physical therapists, or life sciences graduates."]),
+      syllabus: JSON.stringify([
+        {
+          moduleTitle: "Module 1: PDGM Framework & Clinical Groupings",
+          topics: ["PDGM 432 case-mix groups", "Admission source and timing", "Primary diagnosis categories"]
+        },
+        {
+          moduleTitle: "Module 2: OASIS-E Guidance & Comorbidity Adjusters",
+          topics: ["OASIS-E items review", "Comorbidity adjustment tiers", "Surgical wound and ulcer sequencing"]
+        },
+        {
+          moduleTitle: "Module 3: Plan of Care (CMS-485) & Quality Audits",
+          topics: ["CMS Form 485 alignment", "Face-to-face compliance", "ADR denial mitigation"]
+        }
+      ]),
+      faqs: JSON.stringify([
+        {
+          question: "Which certifications align with this training?",
+          answer: "Prepares you for the BCHH-C (Board Certified Home Health Coder) and HCS-D credentials."
+        }
+      ]),
+      isFeatured: false,
+      isPublished: true,
+    },
+    {
+      id: "general-surgery-coding",
+      slug: "general-surgery-coding",
+      title: "General Surgery Coding Training",
+      shortCode: "GEN-SURG",
+      category: "Specialty Coding",
+      summary: "Intensive operative report dissection across abdominal, endocrine, colorectal, breast, and laparoscopic procedures with advanced modifier application.",
+      description: "Advanced procedural coding for high-complexity general surgery cases. Learn to extract procedural components from complex operative notes, evaluate NCCI edits, and apply surgical modifiers accurately.",
+      duration: "1.5 Months",
+      feeInr: 15000,
+      discountFeeInr: 12500,
+      certificationTrack: "AAPC CGSC™ / Surgery Specialty Ready",
+      trainingModes: JSON.stringify(["Live Online Interactive", "Classroom Weekend", "Hybrid Flex"]),
+      eligibility: JSON.stringify(["Certified medical coders (CPC, CCS, CCA), medical transcriptionists, or life science graduates."]),
+      syllabus: JSON.stringify([
+        {
+          moduleTitle: "Module 1: Abdominal Wall, Hernia & Laparoscopic Coding",
+          topics: ["Inguinal, ventral, and incisional hernia repair", "Mesh implantation rules", "Laparoscopic to open conversion"]
+        },
+        {
+          moduleTitle: "Module 2: Digestive, Colorectal & Endocrine Surgery",
+          topics: ["Cholecystectomy and bile duct exploration", "Partial/total colectomies", "Thyroidectomy and mastectomy reviews"]
+        },
+        {
+          moduleTitle: "Module 3: NCCI Edits, Global Packages & Operative Reports",
+          topics: ["NCCI edits and modifier indicators", "Global surgery 0/10/90 days", "50+ authentic operative notes drills"]
+        }
+      ]),
+      faqs: JSON.stringify([
+        {
+          question: "Does this course prepare for the AAPC CGSC certification?",
+          answer: "Yes, the training is mapped to the AAPC Certified General Surgery Coder (CGSC™) exam content."
         }
       ]),
       isFeatured: false,

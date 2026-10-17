@@ -20,7 +20,7 @@ export async function GET() {
             state: "Tamil Nadu",
             postalCode: "600100",
             phone: "+91 8072020716",
-            email: "chennai@medicalcodingofficersacademy.com",
+            email: "medicalcodingofficers@gmail.com",
             isHeadOffice: true,
           },
           {
@@ -32,7 +32,7 @@ export async function GET() {
             state: "Tamil Nadu",
             postalCode: "621212",
             phone: "+91 8072020716",
-            email: "perambalur@medicalcodingofficersacademy.com",
+            email: "medicalcodingofficers@gmail.com",
             isHeadOffice: false,
           },
           {
@@ -44,7 +44,7 @@ export async function GET() {
             state: "Tamil Nadu",
             postalCode: "641024",
             phone: "+91 8072020716",
-            email: "coimbatore@medicalcodingofficersacademy.com",
+            email: "medicalcodingofficers@gmail.com",
             isHeadOffice: false,
           },
           {
@@ -56,7 +56,7 @@ export async function GET() {
             state: "Tamil Nadu",
             postalCode: "600001",
             phone: "+91 8072020716",
-            email: "karaikudi@medicalcodingofficersacademy.com",
+            email: "medicalcodingofficers@gmail.com",
             isHeadOffice: false,
           },
         ]
