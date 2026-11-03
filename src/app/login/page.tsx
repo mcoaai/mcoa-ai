@@ -171,6 +171,7 @@ export default function LoginPage() {
                 <Sparkles className="w-3 h-3 text-[#D8AC55]" /> Dr. Jeevanantham
               </div>
               <div className="text-[10px] text-slate-500">Super Admin / CEO</div>
+              <div className="text-[9px] text-amber-700 font-mono mt-0.5">pass: admin123</div>
             </button>
 
             <button
@@ -182,28 +183,31 @@ export default function LoginPage() {
                 <User className="w-3 h-3 text-[#50458F]" /> Kavitha Sundaram
               </div>
               <div className="text-[10px] text-slate-500">Admissions Counselor</div>
+              <div className="text-[9px] text-purple-700 font-mono mt-0.5">pass: counselor123</div>
             </button>
 
             <button
               type="button"
-              onClick={() => selectDemoAccount('trainer@medicalcodingofficersacademy.com', 'trainer123')}
+              onClick={() => selectDemoAccount('trainer.rajesh@medicalcodingofficersacademy.com', 'trainer123')}
               className="p-2.5 rounded-xl border border-slate-200 hover:border-[#50458F] bg-slate-50 hover:bg-purple-50/50 text-left transition"
             >
               <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
-                <User className="w-3 h-3 text-emerald-600" /> Dr. Rajesh Kumar
+                <User className="w-3 h-3 text-emerald-600" /> Dr. Rajesh Kannan
               </div>
               <div className="text-[10px] text-slate-500">Certified CPC Trainer</div>
+              <div className="text-[9px] text-emerald-700 font-mono mt-0.5">pass: trainer123</div>
             </button>
 
             <button
               type="button"
-              onClick={() => selectDemoAccount('sneha.ramachandran@example.com', 'student123')}
+              onClick={() => selectDemoAccount('sneha.student@example.com', 'student123')}
               className="p-2.5 rounded-xl border border-slate-200 hover:border-[#D8AC55] bg-slate-50 hover:bg-purple-50/50 text-left transition"
             >
               <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
                 <User className="w-3 h-3 text-blue-600" /> Sneha Ramachandran
               </div>
               <div className="text-[10px] text-slate-500">Enrolled Student</div>
+              <div className="text-[9px] text-blue-700 font-mono mt-0.5">pass: student123</div>
             </button>
           </div>
         </div>
