@@ -338,7 +338,7 @@ export default function StudentFeesPage() {
             <div className="font-bold text-sm text-mcoa-midnight">
               MCOA Head Office — Chennai
             </div>
-            <div>#80/1, 200 Feet Radial Road, Pallikaranai, Chennai - 600100</div>
+            <div>#70/1, 200 Feet Radial Road, Pallikaranai, Chennai - 600100</div>
             <div>GSTIN: <strong className="font-mono">33AABCM1234F1Z8</strong></div>
             <div>Central Hotline: +91 8072020716</div>
           </div>

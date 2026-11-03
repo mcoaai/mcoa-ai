@@ -40,7 +40,7 @@ Use **Cinzel** for selective premium editorial titles, **Montserrat** for headin
 
 Display branch details in the website and make all details editable in admin settings. Verify address spellings and postal codes before publishing.
 
-- **Head Office — Chennai:** #80/1, 200 Feet Radial Road (Thoraipakkam to Pallavaram), Near A2B Hotel, Narayanapuram Lake, Pallikarnaia, Chennai - 600100.
+- **Head Office — Chennai:** #70/1, 200 Feet Radial Road (Thoraipakkam to Pallavaram), Near A2B Hotel, Narayanapuram Lake, Pallikaranai, Chennai - 600100.
 - **Perambalur:** 3rd Floor, Annai Hospital, VRM IAS Academy, Near Krishna Theatre, Perambalur, Tamil Nadu - 621212.
 - **Coimbatore:** #17 Sangam Street, Sundarapuram Post, Coimbatore - 641024.
 - **Karaikudi:** #52, 5th Cross, TT Nagar, Near Corner Bakery, Karaikudi - 600001.

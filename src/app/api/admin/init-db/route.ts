@@ -15,7 +15,7 @@ export async function GET() {
             id: "chennai-hq",
             name: "Chennai Head Office",
             code: "CHN-HQ",
-            address: "#80/1, 200 Feet Radial Road, Narayanapuram Lake, Pallikaranai",
+            address: "#70/1, 200 Feet Radial Road, Narayanapuram Lake, Pallikaranai",
             city: "Chennai",
             state: "Tamil Nadu",
             postalCode: "600100",
@@ -133,7 +133,7 @@ export async function GET() {
             title: 'MCOA Academy Overview & Campuses',
             category: 'courses',
             keywords: 'about, mcoa, founder, jeevanantham, campuses, chennai, perambalur, coimbatore, karaikudi, contact, phone',
-            content: 'Medical Coding Officers Academy (MCOA) is India\'s leading healthcare revenue cycle training institution founded by Dr. Jeevanantham Mariappan. Campuses in Chennai (#80/1 200 Feet Radial Road, Pallikaranai), Perambalur, Coimbatore, and Karaikudi. Admissions Hotline: +91 8072020716.',
+            content: 'Medical Coding Officers Academy (MCOA) is India\'s leading healthcare revenue cycle training institution founded by Dr. Jeevanantham Mariappan. Campuses in Chennai (#70/1 200 Feet Radial Road, Pallikaranai), Perambalur, Coimbatore, and Karaikudi. Admissions Hotline: +91 8072020716.',
             source: 'MCOA Official Directory 2026'
           },
           {

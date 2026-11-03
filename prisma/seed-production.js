@@ -10,7 +10,7 @@ async function main() {
       id: "chennai-hq",
       name: "Chennai Head Office",
       code: "CHN-HQ",
-      address: "#80/1, 200 Feet Radial Road (Thoraipakkam to Pallavaram), Near A2B Hotel, Narayanapuram Lake, Pallikaranai",
+      address: "#70/1, 200 Feet Radial Road (Thoraipakkam to Pallavaram), Near A2B Hotel, Narayanapuram Lake, Pallikaranai",
       city: "Chennai",
       state: "Tamil Nadu",
       postalCode: "600100",

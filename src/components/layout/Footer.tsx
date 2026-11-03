@@ -176,7 +176,7 @@ export function Footer() {
             <div className="bg-white/5 p-3 rounded-lg border border-white/10">
               <div className="font-bold text-white mb-1">📍 Chennai Head Office</div>
               <p className="text-[11px] text-white/70">
-                #80/1, 200 Feet Radial Road (Thoraipakkam to Pallavaram), Near A2B Hotel, Narayanapuram Lake, Pallikaranai, Chennai - 600100.
+                #70/1, 200 Feet Radial Road (Thoraipakkam to Pallavaram), Near A2B Hotel, Narayanapuram Lake, Pallikaranai, Chennai - 600100.
               </p>
             </div>
             <div className="bg-white/5 p-3 rounded-lg border border-white/10">

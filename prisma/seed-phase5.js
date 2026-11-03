@@ -10,7 +10,7 @@ async function main() {
       title: 'MCOA Academy Overview, Founder Credentials & Campuses',
       category: 'courses',
       keywords: 'about, mcoa, founder, jeevanantham, campuses, chennai, perambalur, coimbatore, karaikudi, contact, phone, location',
-      content: 'Medical Coding Officers Academy (MCOA) is India\'s premier healthcare revenue cycle management and medical coding training institution founded by Dr. Jeevanantham Mariappan. MCOA operates 4 physical campuses: Chennai Head Office (#80/1 200 Feet Radial Road, Narayanapuram Lake, Pallikaranai, Chennai - 600100), Perambalur (3rd Floor, Annai Hospital, VRM IAS Academy, Near Krishna Theatre, Perambalur - 621212), Coimbatore (#17 Sangam Street, Sundarapuram - 641024), and Karaikudi (#52 5th Cross TT Nagar - 600001). Central admissions hotline and WhatsApp: +91 8072020716. Official email: medicalcodingofficers@gmail.com.',
+      content: 'Medical Coding Officers Academy (MCOA) is India\'s premier healthcare revenue cycle management and medical coding training institution founded by Dr. Jeevanantham Mariappan. MCOA operates 4 physical campuses: Chennai Head Office (#70/1 200 Feet Radial Road, Narayanapuram Lake, Pallikaranai, Chennai - 600100), Perambalur (3rd Floor, Annai Hospital, VRM IAS Academy, Near Krishna Theatre, Perambalur - 621212), Coimbatore (#17 Sangam Street, Sundarapuram - 641024), and Karaikudi (#52 5th Cross TT Nagar - 600001). Central admissions hotline and WhatsApp: +91 8072020716. Official email: medicalcodingofficers@gmail.com.',
       source: 'MCOA Official Academy Charter & Campus Directory'
     },
     {
@@ -322,7 +322,7 @@ Through our direct corporate alliances with Omega Healthcare, Access Healthcare,
     {
       sessionId: 'sess_demo_lead_02',
       role: 'assistant',
-      content: 'Hello! Congratulations on your B.Sc Nursing degree — your clinical and anatomy background will give you a tremendous advantage in medical coding! The MCOA 4-Month Advanced Medical Coding & AAPC CPC Preparation Program is ₹45,000 (inclusive of 18% GST), payable in 3 easy monthly installments of ₹15,000 each. Our Chennai Head Office is at #80/1 200 Feet Radial Road, Pallikaranai. I have notified our senior admissions counselor to call you directly at 9876543210 today!',
+      content: 'Hello! Congratulations on your B.Sc Nursing degree — your clinical and anatomy background will give you a tremendous advantage in medical coding! The MCOA 4-Month Advanced Medical Coding & AAPC CPC Preparation Program is ₹45,000 (inclusive of 18% GST), payable in 3 easy monthly installments of ₹15,000 each. Our Chennai Head Office is at #70/1 200 Feet Radial Road, Pallikaranai. I have notified our senior admissions counselor to call you directly at 9876543210 today!',
       category: 'counselor',
       userPhone: '9876543210',
       escalatedToHuman: true,
