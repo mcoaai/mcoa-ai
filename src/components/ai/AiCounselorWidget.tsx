@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Bot, Send, Sparkles, PhoneCall, ChevronDown, BookOpen, CheckCircle, ShieldAlert } from 'lucide-react';
 
 interface ChatMessage {
@@ -13,6 +14,7 @@ interface ChatMessage {
 }
 
 export default function AiCounselorWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -95,6 +97,15 @@ export default function AiCounselorWidget() {
       setLoading(false);
     }
   };
+
+  // Hide on Admin, Student LMS, and Trainer dashboards (after all hooks are called)
+  if (
+    pathname?.startsWith('/admin') ||
+    pathname?.startsWith('/student') ||
+    pathname?.startsWith('/trainer')
+  ) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50">

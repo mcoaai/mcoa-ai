@@ -1,8 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Phone, Mail, MapPin, Globe, ShieldCheck, ArrowRight } from "lucide-react";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // Hide public marketing footer on Admin, Student LMS, and Trainer dashboards
+  if (
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/student") ||
+    pathname?.startsWith("/trainer")
+  ) {
+    return null;
+  }
+
   return (
     <footer className="bg-mcoa-midnight text-white border-t border-mcoa-amethyst/30 pt-16 pb-12 font-inter">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

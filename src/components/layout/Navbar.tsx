@@ -3,11 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Phone, MessageCircle, Menu, X, ChevronDown, GraduationCap, MapPin, ShieldCheck, User } from "lucide-react";
 
 export function Navbar() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [coursesDropdown, setCoursesDropdown] = useState(false);
+
+  // Hide public marketing navbar on Admin, Student LMS, and Trainer dashboards
+  if (
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/student") ||
+    pathname?.startsWith("/trainer")
+  ) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-mcoa-pearl shadow-sm">
