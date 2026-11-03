@@ -154,13 +154,83 @@ export async function GET() {
       });
     }
 
+    // If users are missing, populate staff and student users
+    const userCount = await prisma.user.count();
+    if (userCount === 0) {
+      const defaultUsers = [
+        {
+          email: "dr.jeeva@medicalcodingofficersacademy.com",
+          name: "Dr. Jeevanantham Mariappan",
+          passwordHash: "admin123",
+          role: "Super Admin",
+          phone: "+91 8072020716",
+          isActive: true,
+          branchId: "chennai-hq",
+        },
+        {
+          email: "admissions@medicalcodingofficersacademy.com",
+          name: "Kavitha Sundaram (Senior Counselor)",
+          passwordHash: "counselor123",
+          role: "Admissions Counselor",
+          phone: "+91 8072020716",
+          isActive: true,
+          branchId: "chennai-hq",
+        },
+        {
+          email: "trainer.rajesh@medicalcodingofficersacademy.com",
+          name: "Dr. Rajesh Kannan, CPC, CCS",
+          passwordHash: "trainer123",
+          role: "Trainer",
+          phone: "+91 8072020716",
+          isActive: true,
+          branchId: "chennai-hq",
+        },
+        {
+          email: "trainer@medicalcodingofficersacademy.com",
+          name: "Dr. Rajesh Kannan, CPC, CCS",
+          passwordHash: "trainer123",
+          role: "Trainer",
+          phone: "+91 8072020716",
+          isActive: true,
+          branchId: "chennai-hq",
+        },
+        {
+          email: "sneha.student@example.com",
+          name: "Sneha Ramachandran",
+          passwordHash: "student123",
+          role: "Student",
+          phone: "+91 8072020716",
+          isActive: true,
+          branchId: "chennai-hq",
+        },
+        {
+          email: "sneha.ramachandran@example.com",
+          name: "Sneha Ramachandran",
+          passwordHash: "student123",
+          role: "Student",
+          phone: "+91 8072020716",
+          isActive: true,
+          branchId: "chennai-hq",
+        },
+      ];
+
+      for (const u of defaultUsers) {
+        await prisma.user.upsert({
+          where: { email: u.email },
+          update: u,
+          create: u,
+        });
+      }
+    }
+
     return NextResponse.json({
       success: true,
       status: 'Database active and initialized',
       stats: {
         branches: await prisma.branch.count(),
         courses: await prisma.course.count(),
-        knowledgeItems: await prisma.aiKnowledgeItem.count()
+        knowledgeItems: await prisma.aiKnowledgeItem.count(),
+        users: await prisma.user.count()
       }
     });
   } catch (error: any) {

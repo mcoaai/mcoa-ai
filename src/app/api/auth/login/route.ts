@@ -78,6 +78,76 @@ export async function POST(req: Request) {
       });
     }
 
+    // Fallback 5: Auto-seed if database has 0 users (e.g. fresh production deployment on Vercel)
+    if (!user) {
+      const userCount = await prisma.user.count();
+      if (userCount === 0) {
+        const defaultUsers = [
+          {
+            email: "dr.jeeva@medicalcodingofficersacademy.com",
+            name: "Dr. Jeevanantham Mariappan",
+            passwordHash: "admin123",
+            role: "Super Admin",
+            phone: "+91 8072020716",
+            isActive: true,
+          },
+          {
+            email: "admissions@medicalcodingofficersacademy.com",
+            name: "Kavitha Sundaram (Senior Counselor)",
+            passwordHash: "counselor123",
+            role: "Admissions Counselor",
+            phone: "+91 8072020716",
+            isActive: true,
+          },
+          {
+            email: "trainer.rajesh@medicalcodingofficersacademy.com",
+            name: "Dr. Rajesh Kannan, CPC, CCS",
+            passwordHash: "trainer123",
+            role: "Trainer",
+            phone: "+91 8072020716",
+            isActive: true,
+          },
+          {
+            email: "trainer@medicalcodingofficersacademy.com",
+            name: "Dr. Rajesh Kannan, CPC, CCS",
+            passwordHash: "trainer123",
+            role: "Trainer",
+            phone: "+91 8072020716",
+            isActive: true,
+          },
+          {
+            email: "sneha.student@example.com",
+            name: "Sneha Ramachandran",
+            passwordHash: "student123",
+            role: "Student",
+            phone: "+91 8072020716",
+            isActive: true,
+          },
+          {
+            email: "sneha.ramachandran@example.com",
+            name: "Sneha Ramachandran",
+            passwordHash: "student123",
+            role: "Student",
+            phone: "+91 8072020716",
+            isActive: true,
+          },
+        ];
+
+        for (const u of defaultUsers) {
+          await prisma.user.upsert({
+            where: { email: u.email },
+            update: u,
+            create: u,
+          });
+        }
+
+        user = await prisma.user.findUnique({
+          where: { email: targetEmail },
+          include: { branch: true }
+        });
+      }
+    }
+
     if (!user) {
       return NextResponse.json({
         error: 'Invalid credentials. User account not found. Please click one of the 1-Click Demo Accounts below.',
