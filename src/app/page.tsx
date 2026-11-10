@@ -10,7 +10,7 @@ import { BranchesSection } from "@/components/home/BranchesSection";
 export const metadata: Metadata = {
   title: "Medical Coding Officers Academy (MCOA) | CPC, CCS & Medical Coding Training",
   description:
-    "South India's premier medical coding training academy founded by Dr. Jeevanantham Mariappan. Master AAPC CPC®, AHIMA CCS® and healthcare RCM with 100% placement support in Chennai (#70/1), Perambalur, Coimbatore, and Karaikudi (630 001).",
+    "South India's premier medical coding training academy founded by Dr. Jeevanantham Mariappan. Master AAPC CPC®, AHIMA CCS® and healthcare RCM with placement assistance in Chennai (#70/1), Perambalur, Coimbatore, and Karaikudi (630 001).",
   alternates: {
     canonical: "/",
   },

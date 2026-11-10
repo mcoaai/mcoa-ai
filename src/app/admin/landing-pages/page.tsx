@@ -313,7 +313,7 @@ export default function AdminLandingPages() {
                   value={form.heroSubheadline}
                   onChange={(e) => setForm({ ...form, heroSubheadline: e.target.value })}
                   className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-800"
-                  placeholder="Join our upcoming batch in Chennai or live online with 100% placement support."
+                  placeholder="Join our upcoming batch in Chennai or live online with dedicated placement assistance."
                 />
               </div>
 

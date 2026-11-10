@@ -61,7 +61,7 @@ export async function POST(req: Request) {
 
       // Context-aware dynamic responses
       if (lowerMsg.includes('fee') || lowerMsg.includes('cost') || lowerMsg.includes('installment') || lowerMsg.includes('price')) {
-        reply = `The MCOA 4-Month Advanced Medical Coding & AAPC CPC Preparation Program is priced at ₹45,000 (inclusive of 18% GST). We offer a 3-installment plan: Installment 1 (Down Payment upon joining): ₹15,000; Installment 2 (Month 1): ₹15,000; Installment 3 (Month 2): ₹15,000. All fees include official manuals, LMS simulator access, and 100% placement support.`;
+        reply = `The MCOA 4-Month Advanced Medical Coding & AAPC CPC Preparation Program is priced at ₹45,000 (inclusive of 18% GST). We offer a 3-installment plan: Installment 1 (Down Payment upon joining): ₹15,000; Installment 2 (Month 1): ₹15,000; Installment 3 (Month 2): ₹15,000. All fees include official manuals, LMS simulator access, and placement assistance.`;
       } else if (lowerMsg.includes('campus') || lowerMsg.includes('branch') || lowerMsg.includes('chennai') || lowerMsg.includes('coimbatore') || lowerMsg.includes('location')) {
         reply = `MCOA operates 4 official campuses: Chennai Head Office (#70/1 200 Feet Radial Road, Pallikaranai), Perambalur (3rd Floor, Annai Hospital), Coimbatore (#17 Sangam Street, Sundarapuram), and Karaikudi (#52 5th Cross TT Nagar). We also offer live interactive online batches via Zoom and Google Meet. Central hotline: +91 8072020716.`;
       } else if (lowerMsg.includes('modifier 25') || lowerMsg.includes('modifier 59') || lowerMsg.includes('modifier')) {
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
       } else if (lowerMsg.includes('diabetes') || lowerMsg.includes('e11') || lowerMsg.includes('icd')) {
         reply = `Per 2026 ICD-10-CM guidelines (Sec I.C.4), category E11 requires coding the specific diabetic complication first (e.g., E11.22 for diabetic CKD), followed by the manifestation stage (e.g., N18.30 for CKD stage 3). Long-term insulin use is captured with Z79.4 as secondary.`;
       } else if (lowerMsg.includes('placement') || lowerMsg.includes('job') || lowerMsg.includes('salary') || lowerMsg.includes('company')) {
-        reply = `MCOA offers 100% placement assistance. Our graduates are recruited by corporate RCM leaders including Omega Healthcare, Access Healthcare, Episource, and AGS Health with starting packages ranging from ₹3.50 LPA to ₹5.20 LPA.`;
+        reply = `MCOA offers dedicated placement assistance. Our graduates are recruited by corporate RCM leaders including Omega Healthcare, Access Healthcare, Episource, and AGS Health with starting packages ranging from ₹3.50 LPA to ₹5.20 LPA.`;
       } else {
         reply = `${best.content} [Reference: ${best.source}]`;
       }

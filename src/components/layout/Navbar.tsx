@@ -147,7 +147,7 @@ export function Navbar() {
                       Advanced Medical Coding Masterclass
                     </div>
                     <div className="text-[11px] text-gray-500 font-normal">
-                      Flagship 90-day comprehensive training with 100% placement
+                      Flagship 90-day comprehensive training with placement assistance
                     </div>
                   </div>
                 </Link>

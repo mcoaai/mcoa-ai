@@ -154,7 +154,7 @@ export function Footer() {
                 <span>Certification Standards</span>
               </div>
               <p className="text-[11px] leading-relaxed">
-                Curriculum strictly aligned with AAPC and AHIMA professional standards. 94%+ first-attempt pass rate and 100% placement support.
+                Curriculum strictly aligned with AAPC and AHIMA professional standards. 94%+ first-attempt pass rate and dedicated placement assistance.
               </p>
             </div>
 

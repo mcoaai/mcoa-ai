@@ -14,7 +14,7 @@ export function WhyMcoa() {
     },
     {
       icon: Users,
-      title: "100% Placement & Interview Training",
+      title: "Placement Assistance & Interview Training",
       description: "Comprehensive technical mock interviews, resume crafting, and recruitment drives with 40+ leading US healthcare IT and RCM companies.",
     },
     {

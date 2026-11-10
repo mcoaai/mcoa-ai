@@ -49,7 +49,7 @@ async function main() {
       source: 'CMS Inpatient Prospective Payment System (IPPS) Manual'
     },
     {
-      title: '100% Placement Assistance & Corporate RCM Hiring Partners',
+      title: 'Placement Assistance & Corporate RCM Hiring Partners',
       category: 'career_rcm',
       keywords: 'placements, jobs, salary, package, hiring partners, omega, access healthcare, episource, interview',
       content: 'MCOA provides dedicated career placement assistance to every certified graduate. Our corporate recruitment partners include Omega Healthcare Management Services, Access Healthcare, Episource, Cognizant RCM, and AGS Health. Certified CPC freshers typically receive starting packages ranging from ₹3.50 LPA to ₹5.20 LPA with performance incentives, medical insurance, and fast-track team lead career progressions.',
@@ -72,7 +72,7 @@ async function main() {
     {
       slug: 'cpc-bootcamp-2026',
       title: 'AAPC CPC Exam Preparation Bootcamp 2026 | Medical Coding Officers Academy',
-      metaDescription: 'Join MCOA 90-Day Intensive AAPC CPC Exam Bootcamp in Chennai, Perambalur, Coimbatore & Online. 98.4% First-Attempt Pass Rate. 100% Placement Support.',
+      metaDescription: 'Join MCOA 90-Day Intensive AAPC CPC Exam Bootcamp in Chennai, Perambalur, Coimbatore & Online. 98.4% First-Attempt Pass Rate. Dedicated Placement Assistance.',
       templateType: 'cpc_bootcamp',
       status: 'Published',
       heroBadge: 'Batch Commencing Monday — Only 8 Seats Remaining',

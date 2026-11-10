@@ -52,7 +52,7 @@ export function Hero() {
               <div className="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/15 flex items-center space-x-2.5">
                 <Users className="w-5 h-5 text-mcoa-lavender shrink-0" />
                 <div>
-                  <div className="font-bold text-white text-sm">100%</div>
+                  <div className="font-bold text-white text-sm">Dedicated</div>
                   <div className="text-[11px] text-white/75">Placement Assistance</div>
                 </div>
               </div>

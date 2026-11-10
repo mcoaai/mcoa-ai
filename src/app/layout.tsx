@@ -96,7 +96,7 @@ const structuredData = {
       logo: "https://medicalcodingofficersacademy.com/mcoa-logo.png",
       image: "https://medicalcodingofficersacademy.com/founder.jpg",
       description:
-        "India's premier healthcare revenue cycle management and medical coding training institution founded by Dr. Jeevanantham Mariappan. Comprehensive AAPC CPC®, AHIMA CCS®, and CRC® training with 100% placement support.",
+        "India's premier healthcare revenue cycle management and medical coding training institution founded by Dr. Jeevanantham Mariappan. Comprehensive AAPC CPC®, AHIMA CCS®, and CRC® training with dedicated placement assistance.",
       telephone: "+91-8072020716",
       email: "medicalcodingofficers@gmail.com",
       founder: {

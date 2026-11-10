@@ -161,7 +161,7 @@ export async function GET(req: Request) {
             source: 'MCOA Board of Governors Fee Structure 2026'
           },
           {
-            title: '100% Placement Assistance & Hiring Partners',
+            title: 'Placement Assistance & Hiring Partners',
             category: 'career_rcm',
             keywords: 'placements, jobs, salary, package, omega, access healthcare, episource',
             content: 'MCOA provides dedicated placement support with corporate RCM partners including Omega Healthcare, Access Healthcare, Episource, and AGS Health. Certified CPC freshers typically receive starting packages ranging from ₹3.50 LPA to ₹5.20 LPA.',

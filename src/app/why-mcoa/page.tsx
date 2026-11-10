@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CheckCircle2, Award, Laptop, Users, ShieldCheck, Clock, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Why Choose MCOA | Doctor-Led Training & 100% Placement Support",
+  title: "Why Choose MCOA | Doctor-Led Training & Dedicated Placement Assistance",
   description:
     "Discover why life sciences, pharmacy, and nursing graduates choose Medical Coding Officers Academy. Real hospital charts, 94%+ pass rate, 4 physical campuses, and doctor-led faculty.",
   alternates: {
@@ -35,7 +35,7 @@ export default function WhyMcoaPage() {
     },
     {
       feature: "Placement Support",
-      mcoa: "100% placement assistance, resume optimization, and scheduled MNC campus drives",
+      mcoa: "Comprehensive placement assistance, resume optimization, and scheduled MNC campus drives",
       others: "Placement assistance not included or restricted to job board forwarding",
     },
   ];

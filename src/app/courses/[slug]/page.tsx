@@ -48,7 +48,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
 
   return {
     title: `${course.title} (${course.shortCode})`,
-    description: `${course.summary} Prepare for ${course.certificationTrack} at Medical Coding Officers Academy with Dr. Jeevanantham Mariappan. Practical training with 100+ clinical charts & 100% placement support.`,
+    description: `${course.summary} Prepare for ${course.certificationTrack} at Medical Coding Officers Academy with Dr. Jeevanantham Mariappan. Practical training with 100+ clinical charts & dedicated placement assistance.`,
     alternates: {
       canonical: `/courses/${course.slug}`,
     },

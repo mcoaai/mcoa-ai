@@ -96,7 +96,7 @@ export default function AdminPlacementsPage() {
             Placement Assistance & Corporate RCM Hiring Desk
           </h1>
           <p className="text-xs text-gray-500 mt-1">
-            Track certified candidate interview pipelines, corporate employer openings, and 100% placement fulfillment records.
+            Track certified candidate interview pipelines, corporate employer openings, and placement assistance fulfillment records.
           </p>
         </div>
 

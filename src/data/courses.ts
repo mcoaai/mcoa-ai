@@ -8,7 +8,7 @@ export const COURSES_DATA: Course[] = [
     shortCode: "AMC-MASTER",
     category: "Medical Coding",
     summary: "Our flagship comprehensive program covering Medical Terminology, Anatomy & Physiology, ICD-10-CM, CPT, and HCPCS Level II with real-world chart auditing.",
-    description: "The Advanced Medical Coding Masterclass at MCOA is an intensive, career-transforming curriculum engineered by Dr. Jeevanantham Mariappan. Built for life sciences, pharmacy, nursing, and healthcare graduates, this program bridges clinical knowledge with international revenue cycle standards. Students practice on simulated medical charts, master cross-specialty coding guidelines, and graduate interview-ready with 100% placement support.",
+    description: "The Advanced Medical Coding Masterclass at MCOA is an intensive, career-transforming curriculum engineered by Dr. Jeevanantham Mariappan. Built for life sciences, pharmacy, nursing, and healthcare graduates, this program bridges clinical knowledge with international revenue cycle standards. Students practice on simulated medical charts, master cross-specialty coding guidelines, and graduate interview-ready with dedicated placement assistance.",
     duration: "3 Months",
     feeInr: 15000,
     discountFeeInr: 9500,

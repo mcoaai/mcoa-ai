@@ -59,7 +59,7 @@ export default function AboutPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>100% Placement assistance with leading healthcare MNCs in South India</span>
+                  <span>Placement assistance with leading healthcare MNCs in South India</span>
                 </div>
               </div>
             </div>

@@ -43,7 +43,7 @@ export default function ApplyPage() {
           </div>
           <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center space-x-2.5">
             <CheckCircle2 className="w-5 h-4 text-emerald-600 shrink-0" />
-            <span>100% placement training included</span>
+            <span>Placement assistance included</span>
           </div>
         </div>
       </div>
