@@ -42,8 +42,7 @@ export default function FounderPage() {
                   sizes="128px"
                 />
               </div>
-              <h3 className="font-montserrat font-bold text-lg text-white">Dr. Jeevanantham M.</h3>
-              <p className="text-xs text-white/80">Physician & Health Informatics Director</p>
+              <h3 className="font-montserrat font-bold text-lg text-white">Dr. Jeevanantham Mariappan</h3>
             </div>
 
             <div className="md:col-span-8 space-y-3 text-xs sm:text-sm text-white/90 font-inter">
