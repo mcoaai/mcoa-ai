@@ -66,6 +66,63 @@ export const COURSES_DATA: Course[] = [
         answer: "Yes, MCOA provides dedicated placement support including resume curation, mock interview rounds with Dr. Jeevanantham's team, and interview schedules with our 40+ healthcare IT hiring partners."
       }
     ],
+    targetAudience: [
+      "Graduates in Life Sciences (Biotechnology, Microbiology, Biochemistry, Zoology, Botany)",
+      "Nursing & Pharmacy Graduates (B.Sc Nursing, GNM, B.Pharm, M.Pharm, Pharm.D)",
+      "Allied Health Professionals (Physiotherapy BPT, BDS, BAMS, BHMS)",
+      "Graduates seeking high-growth international healthcare IT revenue cycle careers"
+    ],
+    recommendedPrerequisites: [
+      "No prior coding experience required; foundational terminology is taught from scratch in Module 1",
+      "Basic computer literacy and eagerness to master clinical chart interpretation"
+    ],
+    weeklySyllabus: [
+      {
+        week: "Weeks 1 – 3",
+        title: "Clinical Foundations: Medical Terminology, Anatomy & Pathology",
+        exercises: "Anatomical directional planes, Greek/Latin prefixes, and clinical chart pathology decoding."
+      },
+      {
+        week: "Weeks 4 – 7",
+        title: "ICD-10-CM Diagnosis Coding: Chapters 1 to 22 & Official Guidelines",
+        exercises: "50 real-world inpatient and outpatient diagnosis cases; combination code sequencing rules."
+      },
+      {
+        week: "Weeks 8 – 11",
+        title: "CPT-4 Procedural Coding & Modifiers: Surgery, E&M, Radiology & Pathology",
+        exercises: "Operative report extraction, NCCI edit validation, and modifier 25/59/78/79 leveling."
+      },
+      {
+        week: "Weeks 12 – 14",
+        title: "HCPCS Level II, Inpatient MS-DRG Overview & 100+ Chart Audits",
+        exercises: "Full revenue cycle chart review, claim denial remediation, and unbundling audits."
+      },
+      {
+        week: "Weeks 15 – 16",
+        title: "AAPC CPC Exam Preparation Drills, Timed Mocks & Corporate Placement Drives",
+        exercises: "3 full-length timed mock exams, resume engineering, and technical interview simulations."
+      }
+    ],
+    inclusions: [
+      "Complete MCOA Course Study Manual & Illustrated Clinical Anatomy Guide",
+      "Access to 100+ de-identified authentic hospital chart auditing encounters",
+      "Online Exam Simulator Access with 1,500+ chapter-wise practice questions",
+      "Comprehensive Placement Cell assistance (Resume curation & corporate mock interviews)",
+      "1-Year access to class recordings & mentor doubt-clearing WhatsApp forum"
+    ],
+    exclusions: [
+      "AAPC / AHIMA annual student membership fee (approx. $145 - $190 USD, paid directly to certifying body)",
+      "Official examination voucher fee (paid directly to AAPC/AHIMA upon scheduling exam date)",
+      "Physical codebooks (AMA CPT® Professional, Optum360/AAPC ICD-10-CM Expert, HCPCS Level II)"
+    ],
+    testimonial: {
+      quote: "Coming from a B.Sc Microbiology background, medical terminology felt daunting at first. Dr. Jeevanantham's step-by-step breakdown of anatomy and chart coding made it intuitive. I cleared my certification and was hired directly through MCOA campus recruitment at Omega Healthcare.",
+      author: "Karthik Sundaram",
+      credential: "CPC-A® Certified",
+      role: "Associate Coding Executive",
+      company: "Omega Healthcare, Coimbatore",
+      batchYear: "Alumni Batch"
+    },
     isFeatured: true
   },
   {
@@ -127,8 +184,76 @@ export const COURSES_DATA: Course[] = [
       {
         question: "Does MCOA provide guidance on registering for the official AAPC exam?",
         answer: "Yes, our admissions coordinators assist candidates with AAPC membership, exam voucher booking, and remote or in-person testing center scheduling."
+      },
+      {
+        question: "What happens if I need extra help before the exam date?",
+        answer: "Students have access to 1-on-1 doubt clearing clinics with Dr. Rajesh and our senior faculty, plus weekly diagnostic review sessions until their test date."
       }
     ],
+    targetAudience: [
+      "Life Sciences, Nursing, Pharmacy & Allied Health graduates aiming for international AAPC certification",
+      "Medical coders with 6+ months experience seeking CPC credentialing for salary upgrade",
+      "Career switchers who have completed foundational medical coding coursework"
+    ],
+    recommendedPrerequisites: [
+      "Completion of foundational medical coding (ICD-10-CM & CPT) or medical background",
+      "Familiarity with human anatomy, body systems, and medical terminology"
+    ],
+    weeklySyllabus: [
+      {
+        week: "Week 1 – 2",
+        title: "AAPC Exam Blueprint, Time Allocation & Guideline Indexing",
+        exercises: "Process of Elimination speed drills; indexing 50 complex diagnostic scenarios under 2.4 minutes each."
+      },
+      {
+        week: "Week 3 – 5",
+        title: "Surgical Coding Drills: Integumentary, Musculoskeletal & Respiratory (10k–30k series)",
+        exercises: "Operative report breakdown; unbundling traps, lesion excision sizing, and fracture reduction coding."
+      },
+      {
+        week: "Week 6 – 8",
+        title: "Cardiovascular, Digestive, Urinary & Endocrine Coding (30k–60k series)",
+        exercises: "Coronary intervention coding, endoscopy navigation rules, and complex modifier applications (25, 59, 78, 79)."
+      },
+      {
+        week: "Week 9 – 10",
+        title: "Evaluation & Management (E&M 2026 MDM Rules), Anesthesia, Radiology & Pathology",
+        exercises: "Clinical encounter leveling using CMS 2026 MDM scoring grids and physical status anesthesia calculation."
+      },
+      {
+        week: "Week 11 – 12",
+        title: "5 Full-Length Timed AAPC Mock Exams & Individual Weakness Remediation",
+        exercises: "Simulated 100-question 4-hour mock exams under actual AAPC testing conditions with question-by-question rationales."
+      }
+    ],
+    inclusions: [
+      "Official MCOA CPC Prep Comprehensive Guidebook & Exam Practice Workbook",
+      "Online Exam Simulator Access with 1,500+ timed chapter-wise practice questions",
+      "5 full-length simulated mock examinations with comprehensive answer explanations",
+      "Direct codebook tabbing and rapid guideline referencing methodology",
+      "Dedicated Placement Cell support (corporate resume building & mock technical interviews)",
+      "1-Year access to class recordings & doubt clearing WhatsApp/Telegram community"
+    ],
+    exclusions: [
+      "AAPC Annual Student Membership Fee (approx. $145 - $190 USD, paid directly to AAPC)",
+      "Official AAPC CPC Examination Voucher Fee (paid directly to AAPC upon booking test date)",
+      "Physical Codebooks (AMA CPT® Professional, Optum360/AAPC ICD-10-CM Expert, HCPCS Level II)"
+    ],
+    examBlueprint: {
+      totalQuestions: "100 Multiple-Choice Questions",
+      duration: "4 Hours (240 Minutes)",
+      passingScore: "70% (70 or more correct questions)",
+      openBookPolicy: "Open Codebook (AMA CPT® Professional, ICD-10-CM Expert, HCPCS Level II)",
+      educatorVerificationNotice: "Official Educator Verification Notice: The CPC exam format (100 questions, 4 hours, 70% threshold) is verified against current official AAPC guidelines before each training batch. All 2026 CMS & AAPC code updates, modifier guidelines, and payer rules are strictly reviewed by Dr. Jeevanantham's academic board."
+    },
+    testimonial: {
+      quote: "Dr. Jeevanantham's method of teaching surgery coding through actual anatomy diagrams made all the difference. I cleared my CPC on my very first attempt with 86% and received an offer letter from Access Healthcare within 3 weeks of certification.",
+      author: "Ananya Ramesh",
+      credential: "CPC® (AAPC)",
+      role: "Junior Medical Coding Officer",
+      company: "Access Healthcare, Chennai",
+      batchYear: "Alumni Batch"
+    },
     isFeatured: true
   },
   {

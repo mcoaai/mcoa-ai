@@ -27,6 +27,30 @@ export interface Course {
     answer: string;
   }[];
   isFeatured?: boolean;
+  targetAudience?: string[];
+  recommendedPrerequisites?: string[];
+  weeklySyllabus?: {
+    week: string;
+    title: string;
+    exercises: string;
+  }[];
+  inclusions?: string[];
+  exclusions?: string[];
+  examBlueprint?: {
+    totalQuestions: string;
+    duration: string;
+    passingScore: string;
+    openBookPolicy: string;
+    educatorVerificationNotice: string;
+  };
+  testimonial?: {
+    quote: string;
+    author: string;
+    credential: string;
+    role: string;
+    company: string;
+    batchYear: string;
+  };
 }
 
 export interface Branch {
