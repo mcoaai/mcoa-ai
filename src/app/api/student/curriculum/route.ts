@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
     const courseSlug = searchParams.get("slug") || "advanced-medical-coding";
 
@@ -17,7 +27,9 @@ export async function GET(req: Request) {
             lessons: {
               orderBy: { order: "asc" },
               include: {
-                progress: true,
+                progress: {
+                  where: { userId: session.id },
+                },
               },
             },
           },
@@ -29,17 +41,13 @@ export async function GET(req: Request) {
       return NextResponse.json({ success: false, error: "Course not found" }, { status: 404 });
     }
 
-    const student = await prisma.user.findFirst({ where: { role: "Student" } });
-
     // Format modules with student completion status
     const formattedModules = course.modules.map((mod) => ({
       id: mod.id,
       title: mod.title,
       order: mod.order,
       lessons: mod.lessons.map((les) => {
-        const isCompleted = les.progress.some(
-          (p) => p.userId === student?.id && p.completed
-        );
+        const isCompleted = les.progress.some((p) => p.completed);
         return {
           id: les.id,
           title: les.title,

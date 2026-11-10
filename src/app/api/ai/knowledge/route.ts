@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
+import { verifySignedToken, hasAnyRole, ROLES } from '@/lib/auth';
 
 export async function GET(req: Request) {
   try {
@@ -30,6 +32,18 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Staff authentication required" }, { status: 401 });
+    }
+
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER, ROLES.TRAINER])) {
+      return NextResponse.json({ success: false, error: "Forbidden: Insufficient knowledge base permissions" }, { status: 403 });
+    }
+
     const body = await req.json();
     const { title, category, keywords, content, source, isVerified = true } = body;
 

@@ -1,20 +1,29 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, canAccessStudentRecord } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
-    const { searchParams } = new URL(req.url);
-    let userId = searchParams.get("userId");
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
 
-    if (!userId) {
-      const student = await prisma.user.findFirst({ where: { role: "Student" } });
-      if (student) userId = student.id;
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
     }
 
-    if (!userId) {
-      return NextResponse.json({ success: false, error: "Student not found" }, { status: 404 });
+    const { searchParams } = new URL(req.url);
+    let userId = searchParams.get("userId") || session.id;
+
+    // Student ownership check
+    if (!canAccessStudentRecord(session, userId)) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden: Cannot access another student's analytics" },
+        { status: 403 }
+      );
     }
 
     // 1. Fetch practice attempts

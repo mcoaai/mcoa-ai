@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, hasAnyRole, ROLES } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +40,18 @@ const APPROVED_TEMPLATES = [
 
 export async function GET() {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Staff authentication required" }, { status: 401 });
+    }
+
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER, ROLES.COUNSELOR])) {
+      return NextResponse.json({ success: false, error: "Forbidden: Insufficient WhatsApp broadcast permissions" }, { status: 403 });
+    }
+
     const logs = await prisma.whatsAppMessage.findMany({
       orderBy: { sentAt: "desc" },
       take: 50,
@@ -66,6 +80,18 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Staff authentication required" }, { status: 401 });
+    }
+
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER, ROLES.COUNSELOR])) {
+      return NextResponse.json({ success: false, error: "Forbidden: Insufficient WhatsApp dispatch permissions" }, { status: 403 });
+    }
+
     const { recipientPhone, recipientName, templateName, parameters, category } = await req.json();
 
     if (!recipientPhone || !templateName) {
@@ -91,6 +117,16 @@ export async function POST(req: Request) {
         sentAt: new Date(),
         deliveredAt: new Date(Date.now() + 2000),
         externalMessageId: `wamid.MCOA_DISPATCH_${Date.now()}`,
+      },
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        action: "WHATSAPP_DISPATCHED",
+        entityType: "WhatsAppMessage",
+        entityId: message.id,
+        performedBy: `${session.name} (${session.email})`,
+        details: JSON.stringify({ recipientPhone, templateName, category }),
       },
     });
 

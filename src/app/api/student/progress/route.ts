@@ -1,23 +1,31 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, canAccessStudentRecord } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
+    }
+
     const { lessonId, userId, completed } = await req.json();
 
     if (!lessonId) {
       return NextResponse.json({ success: false, error: "lessonId required" }, { status: 400 });
     }
 
-    // Default to student user if not provided
-    let targetUserId = userId;
-    if (!targetUserId) {
-      const student = await prisma.user.findFirst({ where: { role: "Student" } });
-      if (student) targetUserId = student.id;
-    }
+    const targetUserId = userId || session.id;
 
-    if (!targetUserId) {
-      return NextResponse.json({ success: false, error: "User not found" }, { status: 404 });
+    if (!canAccessStudentRecord(session, targetUserId)) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden: Cannot update progress for another student" },
+        { status: 403 }
+      );
     }
 
     const progress = await prisma.lessonProgress.upsert({

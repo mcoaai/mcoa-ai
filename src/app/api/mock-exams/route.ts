@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, hasAnyRole, ROLES } from "@/lib/auth";
 
 export async function GET(req: Request) {
   try {
@@ -28,17 +30,22 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
+    }
+
     const { examId, answers, timeSpentSeconds, userId } = await req.json();
 
     if (!examId || !answers) {
       return NextResponse.json({ success: false, error: "examId and answers required" }, { status: 400 });
     }
 
-    let targetUserId = userId;
-    if (!targetUserId) {
-      const student = await prisma.user.findFirst({ where: { role: "Student" } });
-      if (student) targetUserId = student.id;
-    }
+    const isStaff = hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.TRAINER]);
+    const targetUserId = isStaff && userId ? userId : session.id;
 
     const exam = await prisma.mockExam.findUnique({
       where: { id: examId },

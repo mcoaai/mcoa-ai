@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { verifySignedToken } from '@/lib/auth';
 
 export async function GET() {
   try {
@@ -10,17 +11,23 @@ export async function GET() {
       return NextResponse.json({ authenticated: false, user: null }, { status: 401 });
     }
 
-    const payload = JSON.parse(Buffer.from(sessionCookie.value, 'base64').toString('utf-8'));
+    const session = await verifySignedToken(sessionCookie.value);
+
+    if (!session) {
+      const res = NextResponse.json({ authenticated: false, user: null }, { status: 401 });
+      res.cookies.delete('mcoa_session');
+      return res;
+    }
 
     return NextResponse.json({
       authenticated: true,
       user: {
-        userId: payload.userId,
-        email: payload.email,
-        name: payload.name,
-        role: payload.role,
-        branchId: payload.branchId
-      }
+        userId: session.id,
+        email: session.email,
+        name: session.name,
+        role: session.role,
+        branchId: session.branchId,
+      },
     });
   } catch (err) {
     return NextResponse.json({ authenticated: false, user: null }, { status: 401 });

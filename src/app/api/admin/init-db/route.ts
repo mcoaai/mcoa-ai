@@ -1,8 +1,25 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
+import { verifySignedToken, hasAnyRole, ROLES } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+    const adminKey = req.headers.get("x-admin-key");
+    const validAdminKey = process.env.ADMIN_SETUP_KEY || "mcoa_setup_sec_key_2026";
+
+    const isAuthorized = (session && hasAnyRole(session.role, [ROLES.SUPER_ADMIN])) || adminKey === validAdminKey;
+
+    if (!isAuthorized) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized: Super Admin or setup key required" },
+        { status: 401 }
+      );
+    }
+
     const courseCount = await prisma.course.count();
     const branchCount = await prisma.branch.count();
     const kbCount = await prisma.aiKnowledgeItem.count();

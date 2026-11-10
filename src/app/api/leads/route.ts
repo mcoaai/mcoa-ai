@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, hasAnyRole, ROLES, canAccessBranch } from "@/lib/auth";
 import { z } from "zod";
 
 const leadSchema = z.object({
@@ -100,10 +102,34 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Staff authentication required" }, { status: 401 });
+    }
+
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER, ROLES.COUNSELOR])) {
+      return NextResponse.json({ success: false, error: "Forbidden: Insufficient CRM access permissions" }, { status: 403 });
+    }
+
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status");
-    const branchId = searchParams.get("branchId");
+    const requestedBranchId = searchParams.get("branchId");
     const search = searchParams.get("search");
+
+    const isSuperAdmin = hasAnyRole(session.role, [ROLES.SUPER_ADMIN]);
+
+    // Enforce branch boundaries: Non-superadmins CANNOT query other branches
+    if (!isSuperAdmin && session.branchId) {
+      if (requestedBranchId && requestedBranchId !== "ALL" && requestedBranchId !== session.branchId) {
+        return NextResponse.json(
+          { success: false, error: "Forbidden: You cannot access leads outside your assigned branch" },
+          { status: 403 }
+        );
+      }
+    }
 
     const where: any = {};
 
@@ -111,8 +137,10 @@ export async function GET(req: Request) {
       where.status = status;
     }
 
-    if (branchId && branchId !== "ALL") {
-      where.branchId = branchId;
+    if (!isSuperAdmin && session.branchId) {
+      where.branchId = session.branchId;
+    } else if (requestedBranchId && requestedBranchId !== "ALL") {
+      where.branchId = requestedBranchId;
     }
 
     if (search) {
@@ -133,9 +161,10 @@ export async function GET(req: Request) {
       orderBy: { createdAt: "desc" },
     });
 
-    // Funnel counts
+    // Funnel counts scoped to allowed branch
     const countsByStatus = await prisma.lead.groupBy({
       by: ["status"],
+      where: where.branchId ? { branchId: where.branchId } : undefined,
       _count: { _all: true },
     });
 
@@ -156,6 +185,18 @@ export async function GET(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Staff authentication required" }, { status: 401 });
+    }
+
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER, ROLES.COUNSELOR])) {
+      return NextResponse.json({ success: false, error: "Forbidden: Insufficient CRM access permissions" }, { status: 403 });
+    }
+
     const body = await req.json();
     const { leadId, status, notes, assignedCounselorId } = body;
 
@@ -163,6 +204,23 @@ export async function PATCH(req: Request) {
       return NextResponse.json(
         { success: false, error: "leadId is required" },
         { status: 400 }
+      );
+    }
+
+    // Verify lead existence and branch ownership
+    const existingLead = await prisma.lead.findUnique({
+      where: { id: leadId },
+    });
+
+    if (!existingLead) {
+      return NextResponse.json({ success: false, error: "Lead record not found" }, { status: 404 });
+    }
+
+    const isSuperAdmin = hasAnyRole(session.role, [ROLES.SUPER_ADMIN]);
+    if (!isSuperAdmin && session.branchId && existingLead.branchId && existingLead.branchId !== session.branchId) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden: Cannot modify lead records from another branch" },
+        { status: 403 }
       );
     }
 
@@ -176,14 +234,18 @@ export async function PATCH(req: Request) {
       data: updateData,
     });
 
-    // Record audit log
+    // Record detailed audit log with authenticated actor identity
     await prisma.auditLog.create({
       data: {
         action: "LEAD_STATUS_CHANGED",
         entityType: "Lead",
         entityId: leadId,
-        performedBy: "CRM Admin",
-        details: JSON.stringify(updateData),
+        performedBy: session.email,
+        details: JSON.stringify({
+          ...updateData,
+          actorRole: session.role,
+          actorBranch: session.branchId,
+        }),
       },
     });
 

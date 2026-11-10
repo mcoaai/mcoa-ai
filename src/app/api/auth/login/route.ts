@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { createSignedToken } from '@/lib/auth';
 import crypto from 'crypto';
 
 export async function POST(req: Request) {
@@ -198,17 +199,33 @@ export async function POST(req: Request) {
       redirectTo = '/student';
     }
 
-    // 4. Create encrypted/signed session payload
-    const sessionToken = Buffer.from(
-      JSON.stringify({
-        userId: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        branchId: user.branchId,
-        issuedAt: Date.now()
-      })
-    ).toString('base64');
+    // 4. Create cryptographically signed HMAC-SHA256 session token
+    const sessionToken = await createSignedToken({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      branchId: user.branchId,
+    });
+
+    // Audit log successful authentication
+    try {
+      await prisma.auditLog.create({
+        data: {
+          action: 'AUTH_LOGIN_SUCCESS',
+          entityType: 'User',
+          entityId: user.id,
+          performedBy: user.email,
+          details: JSON.stringify({
+            role: user.role,
+            branchId: user.branchId,
+            ip: req.headers.get('x-forwarded-for') || '127.0.0.1',
+          }),
+        },
+      });
+    } catch (auditErr) {
+      console.warn('Audit log write error:', auditErr);
+    }
 
     const response = NextResponse.json({
       success: true,
@@ -219,17 +236,17 @@ export async function POST(req: Request) {
         name: user.name,
         email: user.email,
         role: user.role,
-        branchName: user.branch?.name || 'Central Head Office'
-      }
+        branchName: user.branch?.name || 'Central Head Office',
+      },
     });
 
-    // 5. Set session cookie
+    // 5. Set hardened HTTP-Only session cookie
     response.cookies.set('mcoa_session', sessionToken, {
-      httpOnly: false, // Accessible to client-side header widgets
+      httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 24 * 7 // 7 days
+      maxAge: 60 * 60 * 24, // 24 hours session expiry
     });
 
     return response;

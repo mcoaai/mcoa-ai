@@ -1,15 +1,32 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, hasAnyRole, ROLES, canAccessStudentRecord } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
 
-    // If userId provided, return student-specific statement
+    // 1. If userId provided, check student ownership / staff access
     if (userId) {
+      if (!canAccessStudentRecord(session, userId)) {
+        return NextResponse.json(
+          { success: false, error: "Forbidden: Cannot access another student's financial records" },
+          { status: 403 }
+        );
+      }
+
       const orders = await prisma.paymentOrder.findMany({
         where: { userId },
         orderBy: { installmentNumber: "asc" },
@@ -27,15 +44,33 @@ export async function GET(req: Request) {
       });
     }
 
-    // Otherwise, return full academy finance overview
+    // 2. Otherwise, requester is asking for full academy finance ledger
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.FINANCE, ROLES.BRANCH_MANAGER])) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden: Insufficient privileges for academy-wide financial overview" },
+        { status: 403 }
+      );
+    }
+
+    const isSuperAdmin = hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.FINANCE]);
+
     const allOrders = await prisma.paymentOrder.findMany({
+      where: isSuperAdmin
+        ? undefined
+        : {
+            enrollment: {
+              batch: {
+                branchId: session.branchId || undefined,
+              },
+            },
+          },
       include: {
-        user: true,
+        user: { select: { id: true, name: true, email: true, phone: true } },
         enrollment: {
           include: {
-            course: true,
+            course: { select: { title: true, slug: true } },
             batch: {
-              include: { branch: true },
+              include: { branch: { select: { name: true, city: true, id: true } } },
             },
           },
         },
@@ -55,33 +90,29 @@ export async function GET(req: Request) {
     ).length;
 
     // Collections by Branch
-    const collectionsByCampus: Record<string, number> = {
-      "Chennai Head Office (Pallikaranai)": 0,
-      "Coimbatore Campus (Sundarapuram)": 0,
-      "Perambalur Campus (Annai Hospital)": 0,
-      "Karaikudi Campus (TT Nagar)": 0,
-    };
+    const collectionsByCampus: Record<string, number> = {};
 
     paidOrders.forEach((o) => {
-      const branchName = o.enrollment?.batch?.branch?.name || "Chennai Head Office (Pallikaranai)";
-      if (collectionsByCampus[branchName] !== undefined) {
-        collectionsByCampus[branchName] += o.amount;
-      } else {
-        collectionsByCampus["Chennai Head Office (Pallikaranai)"] += o.amount;
-      }
+      const campus = o.enrollment?.batch?.branch?.name || "Online / Central";
+      collectionsByCampus[campus] = (collectionsByCampus[campus] || 0) + o.amount;
     });
 
     return NextResponse.json({
       success: true,
-      totalCollections,
-      pendingReceivables,
-      overdueCount,
-      totalTransactions: allOrders.length,
-      recentTransactions: allOrders,
-      collectionsByCampus,
+      metrics: {
+        totalCollections,
+        pendingReceivables,
+        overdueCount,
+        collectionsByCampus,
+        totalOrdersCount: allOrders.length,
+      },
+      recentOrders: allOrders.slice(0, 20),
     });
-  } catch (err: any) {
-    console.error("Error fetching finance metrics:", err);
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (error: any) {
+    console.error("Error fetching finance overview:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to load financial records" },
+      { status: 500 }
+    );
   }
 }

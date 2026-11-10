@@ -8,8 +8,8 @@ import { Lock, Mail, ShieldCheck, ArrowRight, AlertCircle, CheckCircle2, User, K
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('dr.jeeva@medicalcodingofficersacademy.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
@@ -150,67 +150,65 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* 1-Click Role Accounts for Instant Testing */}
-        <div className="pt-4 border-t border-slate-100 space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-              1-Click Demo Accounts
-            </span>
-            <span className="text-[10px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-              Evaluator Mode
-            </span>
+        {/* 1-Click Role Accounts (Isolated to Staging / Evaluator Environments) */}
+        {process.env.NEXT_PUBLIC_ENABLE_DEMO_ACCOUNTS === 'true' && (
+          <div className="pt-4 border-t border-slate-100 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                Staging Demo Accounts
+              </span>
+              <span className="text-[10px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                Staging Sandbox
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <button
+                type="button"
+                onClick={() => selectDemoAccount('dr.jeeva@medicalcodingofficersacademy.com', 'admin123')}
+                className="p-2.5 rounded-xl border border-slate-200 hover:border-[#D8AC55] bg-slate-50 hover:bg-purple-50/50 text-left transition"
+              >
+                <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-[#D8AC55]" /> Dr. Jeevanantham
+                </div>
+                <div className="text-[10px] text-slate-500">Super Admin</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => selectDemoAccount('admissions@medicalcodingofficersacademy.com', 'counselor123')}
+                className="p-2.5 rounded-xl border border-slate-200 hover:border-[#50458F] bg-slate-50 hover:bg-purple-50/50 text-left transition"
+              >
+                <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
+                  <User className="w-3 h-3 text-[#50458F]" /> Kavitha Sundaram
+                </div>
+                <div className="text-[10px] text-slate-500">Admissions Counselor</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => selectDemoAccount('trainer.rajesh@medicalcodingofficersacademy.com', 'trainer123')}
+                className="p-2.5 rounded-xl border border-slate-200 hover:border-[#50458F] bg-slate-50 hover:bg-purple-50/50 text-left transition"
+              >
+                <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
+                  <User className="w-3 h-3 text-emerald-600" /> Dr. Rajesh Kannan
+                </div>
+                <div className="text-[10px] text-slate-500">Certified CPC Trainer</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => selectDemoAccount('sneha.student@example.com', 'student123')}
+                className="p-2.5 rounded-xl border border-slate-200 hover:border-[#D8AC55] bg-slate-50 hover:bg-purple-50/50 text-left transition"
+              >
+                <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
+                  <User className="w-3 h-3 text-blue-600" /> Sneha Ramachandran
+                </div>
+                <div className="text-[10px] text-slate-500">Enrolled Student</div>
+              </button>
+            </div>
           </div>
-
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <button
-              type="button"
-              onClick={() => selectDemoAccount('dr.jeeva@medicalcodingofficersacademy.com', 'admin123')}
-              className="p-2.5 rounded-xl border border-slate-200 hover:border-[#D8AC55] bg-slate-50 hover:bg-purple-50/50 text-left transition"
-            >
-              <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-[#D8AC55]" /> Dr. Jeevanantham
-              </div>
-              <div className="text-[10px] text-slate-500">Super Admin / CEO</div>
-              <div className="text-[9px] text-amber-700 font-mono mt-0.5">pass: admin123</div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => selectDemoAccount('admissions@medicalcodingofficersacademy.com', 'counselor123')}
-              className="p-2.5 rounded-xl border border-slate-200 hover:border-[#50458F] bg-slate-50 hover:bg-purple-50/50 text-left transition"
-            >
-              <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
-                <User className="w-3 h-3 text-[#50458F]" /> Kavitha Sundaram
-              </div>
-              <div className="text-[10px] text-slate-500">Admissions Counselor</div>
-              <div className="text-[9px] text-purple-700 font-mono mt-0.5">pass: counselor123</div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => selectDemoAccount('trainer.rajesh@medicalcodingofficersacademy.com', 'trainer123')}
-              className="p-2.5 rounded-xl border border-slate-200 hover:border-[#50458F] bg-slate-50 hover:bg-purple-50/50 text-left transition"
-            >
-              <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
-                <User className="w-3 h-3 text-emerald-600" /> Dr. Rajesh Kannan
-              </div>
-              <div className="text-[10px] text-slate-500">Certified CPC Trainer</div>
-              <div className="text-[9px] text-emerald-700 font-mono mt-0.5">pass: trainer123</div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => selectDemoAccount('sneha.student@example.com', 'student123')}
-              className="p-2.5 rounded-xl border border-slate-200 hover:border-[#D8AC55] bg-slate-50 hover:bg-purple-50/50 text-left transition"
-            >
-              <div className="font-bold text-[#211747] text-[11px] flex items-center gap-1">
-                <User className="w-3 h-3 text-blue-600" /> Sneha Ramachandran
-              </div>
-              <div className="text-[10px] text-slate-500">Enrolled Student</div>
-              <div className="text-[9px] text-blue-700 font-mono mt-0.5">pass: student123</div>
-            </button>
-          </div>
-        </div>
+        )}
 
         <div className="text-center pt-1">
           <Link href="/" className="text-xs text-[#50458F] hover:text-[#211747] hover:underline font-semibold">

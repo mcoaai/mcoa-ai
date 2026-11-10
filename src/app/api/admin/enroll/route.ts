@@ -1,8 +1,22 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, hasAnyRole, ROLES, canAccessBranch } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Staff authentication required" }, { status: 401 });
+    }
+
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER, ROLES.COUNSELOR])) {
+      return NextResponse.json({ success: false, error: "Forbidden: Insufficient enrollment permissions" }, { status: 403 });
+    }
+
     const { leadId, courseId, batchId, totalFee, paidFee } = await req.json();
 
     if (!leadId) {
@@ -16,6 +30,11 @@ export async function POST(req: Request) {
 
     if (!lead) {
       return NextResponse.json({ success: false, error: "Lead not found" }, { status: 404 });
+    }
+
+    // Branch boundary enforcement: non-superadmins cannot enroll leads outside their branch
+    if (!canAccessBranch(session, lead.branchId)) {
+      return NextResponse.json({ success: false, error: "Forbidden: Cannot enroll leads belonging to another branch" }, { status: 403 });
     }
 
     // Check if user already exists for this email
@@ -75,11 +94,12 @@ export async function POST(req: Request) {
         action: "ENROLLMENT_APPROVED",
         entityType: "Enrollment",
         entityId: enrollment.id,
-        performedBy: "Admissions Desk",
+        performedBy: `${session.name} (${session.email} - ${session.role})`,
         details: JSON.stringify({
           studentIdNumber,
           studentName: user.name,
           fee: feeToCharge,
+          enrolledBy: session.id,
         }),
       },
     });

@@ -1,20 +1,50 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { Users, Award, Calendar, CheckCircle2, ArrowRight, Building2, TrendingUp } from "lucide-react";
+import { verifySignedToken, hasAnyRole, ROLES } from "@/lib/auth";
+import { Users, Award, Calendar, CheckCircle2, ArrowRight, Building2, TrendingUp, ShieldAlert } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
+function maskPhone(phone: string | null | undefined): string {
+  if (!phone) return "N/A";
+  const clean = phone.trim();
+  if (clean.length <= 4) return "****";
+  return clean.slice(0, 4) + " •••• " + clean.slice(-2);
+}
+
 export default async function AdminOverviewPage() {
-  const totalLeads = await prisma.lead.count();
-  const newLeads = await prisma.lead.count({ where: { status: "New" } });
+  const cookieStore = cookies();
+  const token = cookieStore.get("mcoa_session")?.value;
+  const session = await verifySignedToken(token);
+
+  if (!session) {
+    redirect("/login?redirectTo=/admin");
+  }
+
+  if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER])) {
+    if (session.role === ROLES.COUNSELOR) {
+      redirect("/admin/crm");
+    }
+    redirect("/login");
+  }
+
+  const isSuperAdmin = hasAnyRole(session.role, [ROLES.SUPER_ADMIN]);
+  const branchFilter = isSuperAdmin ? {} : { branchId: session.branchId || undefined };
+
+  const totalLeads = await prisma.lead.count({ where: branchFilter });
+  const newLeads = await prisma.lead.count({ where: { ...branchFilter, status: "New" } });
   const scheduledLeads = await prisma.lead.count({
     where: {
+      ...branchFilter,
       status: { in: ["Counseling Scheduled", "Demo Scheduled"] },
     },
   });
-  const enrolledLeads = await prisma.lead.count({ where: { status: "Enrolled" } });
+  const enrolledLeads = await prisma.lead.count({ where: { ...branchFilter, status: "Enrolled" } });
 
   const recentLeads = await prisma.lead.findMany({
+    where: branchFilter,
     take: 6,
     orderBy: { createdAt: "desc" },
     include: {
@@ -24,6 +54,7 @@ export default async function AdminOverviewPage() {
   });
 
   const branches = await prisma.branch.findMany({
+    where: isSuperAdmin ? {} : { id: session.branchId || undefined },
     include: {
       _count: {
         select: { leads: true },
@@ -135,7 +166,7 @@ export default async function AdminOverviewPage() {
                   <tr key={lead.id} className="hover:bg-gray-50/80">
                     <td className="py-3 px-3 font-semibold text-mcoa-midnight">
                       <div>{lead.fullName}</div>
-                      <div className="text-[10px] text-gray-400 font-normal">{lead.phone}</div>
+                      <div className="text-[10px] text-gray-400 font-normal">{maskPhone(lead.phone)}</div>
                     </td>
                     <td className="py-3 px-3 text-gray-600">{lead.educationBackground}</td>
                     <td className="py-3 px-3 text-mcoa-amethyst font-medium">

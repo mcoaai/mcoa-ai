@@ -1,17 +1,24 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, hasAnyRole, ROLES } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
+    }
+
     const { orderId, enrollmentId, amount, installmentNumber, userId } = await req.json();
 
-    let targetUserId = userId;
-    if (!targetUserId) {
-      const student = await prisma.user.findFirst({ where: { role: "Student" } });
-      if (student) targetUserId = student.id;
-    }
+    const isStaff = hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.FINANCE]);
+    const targetUserId = isStaff && userId ? userId : session.id;
 
     if (!targetUserId) {
       return NextResponse.json({ success: false, error: "User not found" }, { status: 404 });

@@ -1,8 +1,21 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
+import { verifySignedToken, hasAnyRole, ROLES } from '@/lib/auth';
 
 export async function GET() {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get('mcoa_session')?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Staff authentication required' }, { status: 401 });
+    }
+
+    if (!hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.BRANCH_MANAGER])) {
+      return NextResponse.json({ success: false, error: 'Forbidden: Insufficient report access permissions' }, { status: 403 });
+    }
     // 1. Branch Admissions & Collections Matrix
     const branches = await prisma.branch.findMany({
       include: {

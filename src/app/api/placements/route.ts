@@ -1,37 +1,55 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { verifySignedToken, hasAnyRole, ROLES } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
 
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(req.url);
+    const isStaff = hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.PLACEMENT, ROLES.BRANCH_MANAGER]);
+
+    // If staff, include full applicant details; if student, exclude other students' private applications
     const jobs = await prisma.jobOpening.findMany({
-      include: {
-        applications: {
-          include: {
-            user: true,
+      include: isStaff
+        ? {
+            applications: {
+              include: {
+                user: {
+                  select: { id: true, name: true, email: true, phone: true, branchId: true },
+                },
+              },
+            },
+          }
+        : {
+            applications: {
+              where: { userId: session.id },
+            },
           },
-        },
-      },
       orderBy: { createdAt: "desc" },
     });
 
     let myApplications: any[] = [];
-    if (userId) {
-      myApplications = await prisma.jobApplication.findMany({
-        where: { userId },
-        include: { job: true },
-        orderBy: { appliedAt: "desc" },
-      });
-    }
+    const queryUserId = isStaff ? (searchParams.get("userId") || session.id) : session.id;
+
+    myApplications = await prisma.jobApplication.findMany({
+      where: { userId: queryUserId },
+      include: { job: true },
+      orderBy: { appliedAt: "desc" },
+    });
 
     // Compute placement statistics
     const totalOpenings = jobs.length;
     const totalVacancies = jobs.reduce((sum, j) => sum + j.vacancies, 0);
-    const totalApplications = jobs.reduce((sum, j) => sum + j.applications.length, 0);
 
     return NextResponse.json({
       success: true,
@@ -40,10 +58,7 @@ export async function GET(req: Request) {
       stats: {
         totalOpenings,
         totalVacancies,
-        totalApplications,
-        placementRate: "94.2%",
-        averagePackage: "₹4.85 LPA",
-        hiringPartnersCount: 45,
+        totalApplications: myApplications.length,
       },
     });
   } catch (err: any) {
@@ -54,17 +69,23 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("mcoa_session")?.value;
+    const session = await verifySignedToken(token);
+
+    if (!session) {
+      return NextResponse.json({ success: false, error: "Unauthorized: Authentication required" }, { status: 401 });
+    }
+
+    const isStaff = hasAnyRole(session.role, [ROLES.SUPER_ADMIN, ROLES.PLACEMENT, ROLES.BRANCH_MANAGER]);
     const { jobId, userId, notes, stage, interviewDate, interviewLink, offeredCtc } = await req.json();
 
     if (!jobId) {
       return NextResponse.json({ success: false, error: "jobId is required" }, { status: 400 });
     }
 
-    let targetUserId = userId;
-    if (!targetUserId) {
-      const student = await prisma.user.findFirst({ where: { role: "Student" } });
-      if (student) targetUserId = student.id;
-    }
+    // IDOR protection: Students can only submit for themselves. Staff can apply on behalf of a student.
+    const targetUserId = isStaff && userId ? userId : session.id;
 
     // Check if application already exists
     const existing = await prisma.jobApplication.findFirst({
@@ -72,6 +93,11 @@ export async function POST(req: Request) {
     });
 
     if (existing) {
+      // Only staff can update stage, interview date/link, offered CTC
+      if (!isStaff && (stage || interviewDate || interviewLink || offeredCtc)) {
+        return NextResponse.json({ success: false, error: "Forbidden: Only placement officers can update interview stages" }, { status: 403 });
+      }
+
       // Update application stage or details
       const updated = await prisma.jobApplication.update({
         where: { id: existing.id },
@@ -109,6 +135,16 @@ export async function POST(req: Request) {
         category: "Placement",
         sentAt: new Date(),
         externalMessageId: `wamid.JOB_${Date.now()}`,
+      },
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        action: "PLACEMENT_APPLIED",
+        entityType: "JobApplication",
+        entityId: application.id,
+        performedBy: `${session.name} (${session.email})`,
+        details: JSON.stringify({ jobId, targetUserId, companyName: application.job.companyName }),
       },
     });
 
