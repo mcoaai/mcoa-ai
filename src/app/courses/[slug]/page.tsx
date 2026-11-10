@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { COURSES_DATA } from "@/data/courses";
 import { Course } from "@/types";
 import { LeadCaptureForm } from "@/components/common/LeadCaptureForm";
@@ -96,9 +97,8 @@ function getCourseDetails(course: Course) {
 
   // 3. Trainer Info & Actual Class Schedules
   const trainer = {
-    name: "Dr. Jeevanantham Mariappan, MBBS",
+    name: "Dr. Jeevanantham Mariappan",
     title: "Founder & Chief Academic Officer",
-    credentials: "MBBS, CPC, COC, CPMA, CIC, CPB, CPC-I (AAPC Approved Instructor)",
     bio: "20+ years of healthcare experience bridging clinical medicine, physician documentation, and international revenue cycle management.",
     coTrainer: "Dr. Rajesh Kannan, CPC, CCS — Senior Coding Faculty (9+ Years RCM Experience)",
   };
@@ -480,22 +480,24 @@ export default function CourseDetailPage({ params }: PageProps) {
 
                 {/* Faculty Card */}
                 <div className="p-5 rounded-2xl bg-gradient-to-r from-mcoa-midnight to-[#302263] text-white space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-xl bg-white/10 border border-mcoa-gold/40 flex items-center justify-center text-mcoa-gold font-bold text-lg font-montserrat">
-                      DJ
+                  <div className="flex items-center space-x-4">
+                    <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-mcoa-gold/60 shadow-lg shrink-0">
+                      <Image
+                        src="/founder.jpg"
+                        alt="Dr. Jeevanantham Mariappan"
+                        fill
+                        className="object-cover object-top"
+                        sizes="64px"
+                      />
                     </div>
                     <div>
-                      <div className="font-montserrat font-bold text-base text-mcoa-gold">
+                      <div className="font-montserrat font-bold text-lg text-mcoa-gold">
                         {details.trainer.name}
                       </div>
-                      <div className="text-xs text-white/80 font-medium">
+                      <div className="text-xs text-white/85 font-medium mt-0.5">
                         {details.trainer.title}
                       </div>
                     </div>
-                  </div>
-
-                  <div className="text-xs text-mcoa-lavender font-mono">
-                    {details.trainer.credentials}
                   </div>
 
                   <p className="text-xs text-white/90 leading-relaxed font-inter">

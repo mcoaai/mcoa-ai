@@ -71,7 +71,7 @@ export async function GET(req: Request) {
             address: "#52, 5th Cross, TT Nagar",
             city: "Karaikudi",
             state: "Tamil Nadu",
-            postalCode: "600001",
+            postalCode: "630 001",
             phone: "+91 8072020716",
             email: "medicalcodingofficers@gmail.com",
             isHeadOffice: false,

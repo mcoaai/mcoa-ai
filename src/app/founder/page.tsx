@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { GraduationCap, Award, HeartPulse, Quote, CheckCircle2, ArrowRight } from "lucide-react";
 
 export default function FounderPage() {
@@ -22,8 +23,14 @@ export default function FounderPage() {
         <div className="bg-gradient-to-r from-mcoa-midnight via-[#302263] to-mcoa-amethyst rounded-3xl p-8 sm:p-10 text-white shadow-royal mb-12 relative overflow-hidden">
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             <div className="md:col-span-4 flex flex-col items-center text-center">
-              <div className="w-28 h-28 rounded-full bg-white/10 border-2 border-mcoa-gold flex items-center justify-center text-mcoa-gold shadow-lg mb-4">
-                <GraduationCap className="w-14 h-14" />
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-mcoa-gold shadow-xl mb-4 shrink-0">
+                <Image
+                  src="/founder.jpg"
+                  alt="Dr. Jeevanantham Mariappan"
+                  fill
+                  className="object-cover object-top"
+                  sizes="128px"
+                />
               </div>
               <h3 className="font-montserrat font-bold text-lg text-white">Dr. Jeevanantham M.</h3>
               <p className="text-xs text-white/80">Physician & Health Informatics Director</p>

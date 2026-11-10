@@ -10,7 +10,7 @@ async function main() {
       title: 'MCOA Academy Overview, Founder Credentials & Campuses',
       category: 'courses',
       keywords: 'about, mcoa, founder, jeevanantham, campuses, chennai, perambalur, coimbatore, karaikudi, contact, phone, location',
-      content: 'Medical Coding Officers Academy (MCOA) is India\'s premier healthcare revenue cycle management and medical coding training institution founded by Dr. Jeevanantham Mariappan. MCOA operates 4 physical campuses: Chennai Head Office (#70/1 200 Feet Radial Road, Narayanapuram Lake, Pallikaranai, Chennai - 600100), Perambalur (3rd Floor, Annai Hospital, VRM IAS Academy, Near Krishna Theatre, Perambalur - 621212), Coimbatore (#17 Sangam Street, Sundarapuram - 641024), and Karaikudi (#52 5th Cross TT Nagar - 600001). Central admissions hotline and WhatsApp: +91 8072020716. Official email: medicalcodingofficers@gmail.com.',
+      content: 'Medical Coding Officers Academy (MCOA) is India\'s premier healthcare revenue cycle management and medical coding training institution founded by Dr. Jeevanantham Mariappan. MCOA operates 4 physical campuses: Chennai Head Office (#70/1 200 Feet Radial Road, Narayanapuram Lake, Pallikaranai, Chennai - 600100), Perambalur (3rd Floor, Annai Hospital, VRM IAS Academy, Near Krishna Theatre, Perambalur - 621212), Coimbatore (#17 Sangam Street, Sundarapuram - 641024), and Karaikudi (#52 5th Cross TT Nagar - 630 001). Central admissions hotline and WhatsApp: +91 8072020716. Official email: medicalcodingofficers@gmail.com.',
       source: 'MCOA Official Academy Charter & Campus Directory'
     },
     {

@@ -194,7 +194,7 @@ export function Footer() {
             <div className="bg-white/5 p-3 rounded-lg border border-white/10">
               <div className="font-bold text-white mb-1">📍 Karaikudi Centre</div>
               <p className="text-[11px] text-white/70">
-                #52, 5th Cross, TT Nagar, Near Corner Bakery, Karaikudi - 600001.
+                #52, 5th Cross, TT Nagar, Near Corner Bakery, Karaikudi - 630 001.
               </p>
             </div>
           </div>

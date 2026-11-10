@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Award, GraduationCap, CheckCircle2, ArrowRight, Quote } from "lucide-react";
 
 export function FounderSection() {
@@ -12,8 +13,14 @@ export function FounderSection() {
               <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-mcoa-gold/15 blur-2xl" />
               
               <div className="relative z-10 space-y-6">
-                <div className="w-20 h-20 rounded-2xl bg-white/10 border border-mcoa-gold/50 flex items-center justify-center text-mcoa-gold shadow-inner">
-                  <GraduationCap className="w-10 h-10" />
+                <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-2 border-mcoa-gold/60 shadow-lg shrink-0">
+                  <Image
+                    src="/founder.jpg"
+                    alt="Dr. Jeevanantham Mariappan"
+                    fill
+                    className="object-cover object-top"
+                    sizes="96px"
+                  />
                 </div>
 
                 <div>

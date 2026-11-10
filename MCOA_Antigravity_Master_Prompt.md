@@ -43,7 +43,7 @@ Display branch details in the website and make all details editable in admin set
 - **Head Office — Chennai:** #70/1, 200 Feet Radial Road (Thoraipakkam to Pallavaram), Near A2B Hotel, Narayanapuram Lake, Pallikaranai, Chennai - 600100.
 - **Perambalur:** 3rd Floor, Annai Hospital, VRM IAS Academy, Near Krishna Theatre, Perambalur, Tamil Nadu - 621212.
 - **Coimbatore:** #17 Sangam Street, Sundarapuram Post, Coimbatore - 641024.
-- **Karaikudi:** #52, 5th Cross, TT Nagar, Near Corner Bakery, Karaikudi - 600001.
+- **Karaikudi:** #52, 5th Cross, TT Nagar, Near Corner Bakery, Karaikudi - 630 001.
 
 Provide branch maps, inquiry routing, and branch-specific reporting.
 
