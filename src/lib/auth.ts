@@ -163,3 +163,4 @@ export function canAccessStudentRecord(user: SessionUser | null, targetStudentId
 
   return false;
 }
+

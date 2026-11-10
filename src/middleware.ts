@@ -36,6 +36,24 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  if (pathname === '/api/auth/forgot-password' && request.method === 'POST') {
+    if (!checkRateLimit(`forgot_${ip}`, 5, 60)) {
+      return NextResponse.json(
+        { error: 'Password recovery limit reached. Please wait 1 minute.' },
+        { status: 429, headers: { 'Retry-After': '60' } }
+      );
+    }
+  }
+
+  if (pathname === '/api/auth/mfa/verify' && request.method === 'POST') {
+    if (!checkRateLimit(`mfa_${ip}`, 10, 60)) {
+      return NextResponse.json(
+        { error: 'Too many verification attempts. Please wait 1 minute.' },
+        { status: 429, headers: { 'Retry-After': '60' } }
+      );
+    }
+  }
+
   if (pathname === '/api/leads' && request.method === 'POST') {
     if (!checkRateLimit(`lead_${ip}`, 6, 60)) {
       return NextResponse.json(
@@ -238,5 +256,7 @@ export const config = {
     '/api/sessions',
     '/api/sessions/:path*',
     '/api/auth/login',
+    '/api/auth/mfa/:path*',
+    '/api/auth/forgot-password',
   ],
 };

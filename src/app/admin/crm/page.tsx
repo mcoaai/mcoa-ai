@@ -110,31 +110,29 @@ export default function AdminCrmPage() {
     }
   };
 
-  // Export CSV
-  const handleExportCSV = () => {
-    if (leads.length === 0) return;
-    const headers = ["Name", "Email", "Phone", "Education", "Course", "Campus", "Status", "Mode", "Batch", "Created Date"];
-    const rows = leads.map((l) => [
-      `"${l.fullName}"`,
-      `"${l.email}"`,
-      `"${l.phone}"`,
-      `"${l.educationBackground}"`,
-      `"${l.course?.title || "N/A"}"`,
-      `"${l.branch?.name || "N/A"}"`,
-      `"${l.status}"`,
-      `"${l.mode}"`,
-      `"${l.preferredBatch}"`,
-      `"${new Date(l.createdAt).toLocaleDateString()}"`,
-    ]);
+  // Export CSV via authenticated server endpoint with audit logging
+  const handleExportCSV = async () => {
+    try {
+      const res = await fetch("/api/admin/export/leads");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error || "You do not have permissions to export lead data.");
+        return;
+      }
 
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `mcoa_leads_export_${new Date().toISOString().slice(0, 10)}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `mcoa_leads_export_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Export error:", err);
+      alert("Failed to export leads.");
+    }
   };
 
   return (

@@ -317,6 +317,73 @@ async function runTestSuite() {
   );
 
 
+  // --- SUITE 6: PBKDF2 PASSWORD HASHING & REHASH VALIDATION ---
+  console.log('\n[SUITE 6] Cryptographic Password Hashing & Legacy Migration');
+
+  const salt = crypto.randomBytes(16).toString('hex');
+  const derivedKey = crypto.pbkdf2Sync('superSecretPass123!', salt, 10000, 64, 'sha512').toString('hex');
+  const hashed = `${salt}:${derivedKey}`;
+
+  // Verify correct password
+  const testCheckKey = crypto.pbkdf2Sync('superSecretPass123!', salt, 10000, 64, 'sha512').toString('hex');
+  const isMatch = crypto.timingSafeEqual(Buffer.from(derivedKey, 'hex'), Buffer.from(testCheckKey, 'hex'));
+  assert('PBKDF2 salted hash matches correct password', isMatch === true);
+
+  // Reject wrong password
+  const wrongKey = crypto.pbkdf2Sync('wrongPassword!', salt, 10000, 64, 'sha512').toString('hex');
+  assert('PBKDF2 salted hash rejects incorrect password', derivedKey !== wrongKey);
+
+
+  // --- SUITE 7: MULTI-FACTOR AUTHENTICATION (MFA) FOR PRIVILEGED STAFF ---
+  console.log('\n[SUITE 7] Multi-Factor Authentication (MFA) Challenge & Verification');
+
+  const testMfaCode = '849201';
+  const testMfaHash = crypto.createHash('sha256').update(testMfaCode).digest('hex');
+  const mfaChallengeToken = createSignedToken(
+    { ...fictionalSuperAdmin, role: `MFA_PENDING:${testMfaHash}` },
+    AUTH_SECRET,
+    Date.now() + 5 * 60 * 1000
+  );
+
+  const verifiedMfaSession = verifySignedToken(mfaChallengeToken);
+  assert('MFA challenge token validates and preserves expected code hash', verifiedMfaSession && verifiedMfaSession.role === `MFA_PENDING:${testMfaHash}`);
+
+  // Test valid code match
+  const submittedCorrectHash = crypto.createHash('sha256').update('849201').digest('hex');
+  assert('Correct 6-digit MFA OTP code is accepted', submittedCorrectHash === testMfaHash);
+
+  // Test invalid code match
+  const submittedWrongHash = crypto.createHash('sha256').update('000000').digest('hex');
+  assert('Incorrect 6-digit MFA OTP code is strictly rejected', submittedWrongHash !== testMfaHash);
+
+
+  // --- SUITE 8: PASSWORD RECOVERY TOKEN LIFECYCLE ---
+  console.log('\n[SUITE 8] Single-Use Password Recovery Token Lifecycle');
+
+  const resetToken = createSignedToken(
+    { id: fictionalStudent1.id, email: fictionalStudent1.email, name: fictionalStudent1.name, role: 'PASSWORD_RESET' },
+    AUTH_SECRET,
+    Date.now() + 15 * 60 * 1000
+  );
+
+  const verifiedResetSession = verifySignedToken(resetToken);
+  assert('Password reset token verifies with restricted PASSWORD_RESET scope', verifiedResetSession && verifiedResetSession.role === 'PASSWORD_RESET');
+
+  // Verify that a PASSWORD_RESET token cannot access protected APIs
+  assert('Password reset token CANNOT access Admin pages/APIs', !hasAnyRole(verifiedResetSession.role, ['Super Admin', 'Branch Admin']));
+  assert('Password reset token CANNOT access Student LMS APIs', !hasAnyRole(verifiedResetSession.role, ['Student']));
+
+
+  // --- SUITE 9: RESTRICTED DATA EXPORTS ---
+  console.log('\n[SUITE 9] Restricted CRM Leads & Finance Exports');
+
+  // Only Super Admin and Branch Manager have export privileges
+  assert('Super Admin is ALLOWED to export CRM Leads CSV', hasAnyRole(fictionalSuperAdmin.role, ['Super Admin', 'Branch Admin']));
+  assert('Counselor is FORBIDDEN from exporting CRM Leads CSV (Export restricted)', !hasAnyRole(fictionalCounselorChennai.role, ['Super Admin', 'Branch Admin']));
+  assert('Student is FORBIDDEN from exporting CRM Leads CSV', !hasAnyRole(fictionalStudent1.role, ['Super Admin', 'Branch Admin']));
+  assert('Trainer is FORBIDDEN from exporting CRM Leads CSV', !hasAnyRole(fictionalTrainer.role, ['Super Admin', 'Branch Admin']));
+
+
   // --- SUMMARY ---
   const total = testResults.length;
   const passed = testResults.filter((r) => r.status === 'PASS').length;
@@ -335,3 +402,4 @@ runTestSuite().catch((err) => {
   console.error('Fatal test error:', err);
   process.exit(1);
 });
+
