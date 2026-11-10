@@ -31,7 +31,7 @@ export function FounderSection() {
                 <div className="space-y-3 pt-2 text-xs text-white/90">
                   <div className="flex items-center space-x-2.5">
                     <CheckCircle2 className="w-4 h-4 text-mcoa-gold shrink-0" />
-                    <span>Over 12+ years pioneering medical coding & clinical education</span>
+                    <span>Over 20+ years of healthcare experience & clinical education</span>
                   </div>
                   <div className="flex items-center space-x-2.5">
                     <CheckCircle2 className="w-4 h-4 text-mcoa-gold shrink-0" />

@@ -39,7 +39,7 @@ export default function FounderPage() {
               </p>
               <div className="pt-2 flex flex-wrap gap-4 text-xs">
                 <div className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
-                  12+ Years Industry Experience
+                  20+ Years Healthcare Experience
                 </div>
                 <div className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
                   4,500+ Certified Alums

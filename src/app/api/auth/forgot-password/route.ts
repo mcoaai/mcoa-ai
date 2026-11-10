@@ -62,3 +62,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Password recovery request failed' }, { status: 500 });
   }
 }
+
