@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Award, Laptop, Users, ShieldCheck, Clock, ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Why Choose MCOA | Doctor-Led Training & 100% Placement Support",
+  description:
+    "Discover why life sciences, pharmacy, and nursing graduates choose Medical Coding Officers Academy. Real hospital charts, 94%+ pass rate, 4 physical campuses, and doctor-led faculty.",
+  alternates: {
+    canonical: "/why-mcoa",
+  },
+};
 
 export default function WhyMcoaPage() {
   const comparisons = [

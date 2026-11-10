@@ -1,6 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { GraduationCap, Award, HeartPulse, Quote, CheckCircle2, ArrowRight } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Dr. Jeevanantham Mariappan | Founder & Chief Academic Officer",
+  description:
+    "Meet Dr. Jeevanantham Mariappan, founder of Medical Coding Officers Academy (MCOA). Over 20+ years of healthcare experience bridging clinical medicine and international revenue cycle management.",
+  alternates: {
+    canonical: "/founder",
+  },
+};
 
 export default function FounderPage() {
   return (

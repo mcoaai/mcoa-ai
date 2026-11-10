@@ -1,6 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Award, GraduationCap, ShieldCheck, HeartPulse, Building2, CheckCircle2 } from "lucide-react";
 import { BRANCHES_DATA } from "@/data/branches";
+
+export const metadata: Metadata = {
+  title: "About MCOA | Medical Coding Officers Academy Mission & Values",
+  description:
+    "Learn about Medical Coding Officers Academy, founded by Dr. Jeevanantham Mariappan. Empowering healthcare and life sciences graduates into certified revenue cycle officers with campuses in Chennai (#70/1), Perambalur, Coimbatore, and Karaikudi (630 001).",
+  alternates: {
+    canonical: "/about",
+  },
+};
 
 export default function AboutPage() {
   return (

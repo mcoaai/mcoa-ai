@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -35,6 +36,37 @@ export function generateStaticParams() {
   return COURSES_DATA.map((course) => ({
     slug: course.slug,
   }));
+}
+
+export function generateMetadata({ params }: PageProps): Metadata {
+  const course = COURSES_DATA.find((c) => c.slug === params.slug);
+  if (!course) {
+    return {
+      title: "Course Not Found",
+    };
+  }
+
+  return {
+    title: `${course.title} (${course.shortCode})`,
+    description: `${course.summary} Prepare for ${course.certificationTrack} at Medical Coding Officers Academy with Dr. Jeevanantham Mariappan. Practical training with 100+ clinical charts & 100% placement support.`,
+    alternates: {
+      canonical: `/courses/${course.slug}`,
+    },
+    openGraph: {
+      title: `${course.title} | Medical Coding Officers Academy`,
+      description: course.summary,
+      url: `https://medicalcodingofficersacademy.com/courses/${course.slug}`,
+      siteName: "Medical Coding Officers Academy",
+      images: [
+        {
+          url: "/mcoa-logo.png",
+          width: 1200,
+          height: 630,
+          alt: `${course.title} Training at MCOA`,
+        },
+      ],
+    },
+  };
 }
 
 /**
@@ -205,6 +237,32 @@ export default function CourseDetailPage({ params }: PageProps) {
 
   const details = getCourseDetails(course);
 
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: course.title,
+    description: course.summary,
+    courseCode: course.shortCode,
+    provider: {
+      "@type": "EducationalOrganization",
+      name: "Medical Coding Officers Academy",
+      sameAs: "https://medicalcodingofficersacademy.com",
+    },
+    instructor: {
+      "@type": "Person",
+      name: details.trainer.name,
+      jobTitle: details.trainer.title,
+    },
+    timeRequired: course.duration,
+    educationalCredentialAwarded: course.certificationTrack,
+    offers: {
+      "@type": "Offer",
+      price: course.feeInr ? course.feeInr.toString() : "0",
+      priceCurrency: "INR",
+      category: "Tuition",
+    },
+  };
+
   // Direct WhatsApp inquiry URL pre-populated with course context
   const whatsappUrl = `https://wa.me/918072020716?text=${encodeURIComponent(
     `Hi MCOA Admissions Desk, I would like to inquire about the ${course.title} (${course.shortCode}) program and upcoming batch schedules.`
@@ -212,6 +270,10 @@ export default function CourseDetailPage({ params }: PageProps) {
 
   return (
     <div className="bg-white min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
       {/* Course Hero Banner */}
       <section className="royal-gradient text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

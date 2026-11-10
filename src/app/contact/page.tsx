@@ -1,6 +1,16 @@
+import type { Metadata } from "next";
 import { BRANCHES_DATA } from "@/data/branches";
 import { LeadCaptureForm } from "@/components/common/LeadCaptureForm";
 import { MapPin, Phone, Mail, Clock, MessageSquare, ShieldCheck } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Campuses & Contact Information | Chennai, Perambalur, Coimbatore, Karaikudi",
+  description:
+    "Visit MCOA's 4 physical campuses across Tamil Nadu or speak directly with an admissions counselor. Contact Chennai HQ (#70/1), Perambalur, Coimbatore, or Karaikudi (PIN 630 001). Hotline: +91 8072020716.",
+  alternates: {
+    canonical: "/contact",
+  },
+};
 
 export default function ContactPage() {
   return (
