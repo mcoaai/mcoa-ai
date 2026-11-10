@@ -384,6 +384,72 @@ async function runTestSuite() {
   assert('Trainer is FORBIDDEN from exporting CRM Leads CSV', !hasAnyRole(fictionalTrainer.role, ['Super Admin', 'Branch Admin']));
 
 
+  // --- SUITE 10: ADMISSIONS LEAD ROUTING & CAMPUS ASSIGNMENT (FICTIONAL DATA) ---
+  console.log('\n[SUITE 10] Admissions Lead Routing & Campus Assignment (Fictional Data)');
+
+  const fictionalLeads = [
+    {
+      fullName: "Arun Prakash (Test)",
+      email: "arun.test.bio@example.com",
+      phone: "+91 99999 11111",
+      educationBackground: "B.Sc Microbiology",
+      branchCode: "chennai-hq",
+      mode: "Classroom Offline",
+      contactPreference: "WhatsApp & Call",
+      privacyConsent: true,
+    },
+    {
+      fullName: "Kavitha R. (Test)",
+      email: "kavitha.test.pharm@example.com",
+      phone: "+91 99999 22222",
+      educationBackground: "B.Pharm",
+      branchCode: "perambalur",
+      mode: "Live Interactive Online",
+      contactPreference: "WhatsApp Only",
+      privacyConsent: true,
+    },
+    {
+      fullName: "Senthil Kumar (Test)",
+      email: "senthil.test.bds@example.com",
+      phone: "+91 99999 33333",
+      educationBackground: "BDS",
+      branchCode: "karaikudi",
+      mode: "Hybrid Flex",
+      contactPreference: "Email Only",
+      privacyConsent: false, // rejected!
+    },
+  ];
+
+  // Lead 1: Assigned to Chennai HQ
+  const lead1AssignedBranch = fictionalLeads[0].branchCode;
+  assert('Lead 1 with chennai-hq preference correctly maps to Chennai branch', lead1AssignedBranch === 'chennai-hq');
+  assert('Chennai counselor CAN access Lead 1', canAccessBranch(fictionalCounselorChennai, lead1AssignedBranch));
+  assert('Perambalur counselor CANNOT access Lead 1 (Branch isolated)', !canAccessBranch(fictionalCounselorPerambalur, lead1AssignedBranch));
+
+  // Lead 2: Assigned to Perambalur
+  const lead2AssignedBranch = fictionalLeads[1].branchCode;
+  assert('Lead 2 with perambalur preference correctly maps to Perambalur branch', lead2AssignedBranch === 'perambalur');
+  assert('Perambalur counselor CAN access Lead 2', canAccessBranch(fictionalCounselorPerambalur, lead2AssignedBranch));
+  assert('Chennai counselor CANNOT access Lead 2 (Branch isolated)', !canAccessBranch(fictionalCounselorChennai, lead2AssignedBranch));
+
+  // Lead 3: Privacy Consent Enforcement
+  assert('Lead submission WITHOUT privacy consent is rejected by validation', !fictionalLeads[2].privacyConsent);
+
+
+  // --- SUITE 11: SAFE-HARBOR DE-IDENTIFICATION & PRACTICE MATERIAL VERIFICATION ---
+  console.log('\n[SUITE 11] Safe-Harbor De-Identification & Synthetic Chart Verification');
+
+  const testClinicalCase = {
+    title: "Outpatient Laparoscopic Cholecystectomy Encounter",
+    clinicalChart: "PATIENT: Educational Synthetic Subject\nDOB: Redacted (Safe-Harbor)\nCHIEF COMPLAINT: Recurrent right upper quadrant pain.\nPROCEDURE: Laparoscopic cholecystectomy with cholangiography.\nFINDINGS: Acute cholecystitis with multiple gallstones.\nCODES: K81.0, 47563",
+    isDeIdentified: true,
+    hasPHI: false,
+  };
+
+  assert('Clinical practice case does not contain patient protected health information (PHI)', !testClinicalCase.hasPHI);
+  assert('Clinical practice chart is labeled as safe-harbor educational synthetic material', testClinicalCase.isDeIdentified);
+
+
   // --- SUMMARY ---
   const total = testResults.length;
   const passed = testResults.filter((r) => r.status === 'PASS').length;

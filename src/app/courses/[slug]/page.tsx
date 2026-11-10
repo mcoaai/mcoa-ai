@@ -401,6 +401,17 @@ export default function CourseDetailPage({ params }: PageProps) {
                 </div>
               )}
 
+              {/* Credentialing Distinction Notice */}
+              <div className="bg-white border-l-4 border-mcoa-gold p-4 rounded-xl shadow-xs text-xs text-gray-600 space-y-1">
+                <div className="font-bold text-mcoa-midnight font-montserrat flex items-center space-x-1.5">
+                  <ShieldCheck className="w-4 h-4 text-mcoa-gold" />
+                  <span>AAPC & AHIMA Credentialing Distinction</span>
+                </div>
+                <p className="leading-relaxed text-[11px]">
+                  MCOA provides independent preparatory training and education. Official credentials (CPC®, CCS®, etc.) are issued exclusively by AAPC or AHIMA upon passing their respective official examinations. MCOA course fees cover training, manuals, and mock simulators; external exam voucher fees are payable separately to the credentialing bodies.
+                </p>
+              </div>
+
               {/* 2. Program Overview */}
               <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200/80 space-y-4">
                 <div className="flex items-center space-x-2 text-mcoa-midnight font-bold font-montserrat text-xl">

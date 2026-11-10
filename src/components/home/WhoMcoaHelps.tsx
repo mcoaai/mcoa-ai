@@ -23,7 +23,7 @@ export function WhoMcoaHelps() {
       description:
         "Bridge your foundational knowledge of human anatomy, cell biology, and pathology with international diagnostic (ICD-10-CM) and surgical procedure (CPT) coding standards.",
       careerPath: "Certified Medical Coder → Outpatient Senior Coder → Quality Auditor",
-      avgSalary: "₹3.5L – ₹5.5L CTC starting",
+      careerTrack: "Core Coding Track",
       badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
       iconBg: "bg-blue-600 text-white",
     },
@@ -35,7 +35,7 @@ export function WhoMcoaHelps() {
       description:
         "Leverage your in-depth mastery of pharmacology, drug classifications, adverse effects, and disease interactions for high-demand Risk Adjustment (CRC®) and Specialty Coding roles.",
       careerPath: "Risk Adjustment Specialist → HCC Audit Specialist → RCM Team Lead",
-      avgSalary: "₹4.0L – ₹6.5L CTC starting",
+      careerTrack: "Specialty CRC Track",
       badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
       iconBg: "bg-emerald-600 text-white",
     },
@@ -45,9 +45,9 @@ export function WhoMcoaHelps() {
       title: "Nursing & Paramedical Professionals",
       degrees: "B.Sc Nursing, GNM, BPT, Medical Laboratory & Imaging Technology",
       description:
-        "Transition from demanding 12-hour hospital shifts and physical bedside duties into high-paying, structured corporate healthcare IT roles with leading multinational corporations.",
+        "Transition from demanding 12-hour hospital shifts and physical bedside duties into structured corporate healthcare IT roles with leading multinational corporations.",
       careerPath: "Inpatient Coder (CCS®) → CDI Specialist → Corporate RCM Manager",
-      avgSalary: "₹4.0L – ₹6.0L CTC starting",
+      careerTrack: "Hospital Inpatient Track",
       badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
       iconBg: "bg-purple-600 text-white",
     },
@@ -57,9 +57,9 @@ export function WhoMcoaHelps() {
       title: "Doctors, Dentists & Allied Health",
       degrees: "BDS, BHMS, BAMS, Allied Health & Clinical Documentation Specialists",
       description:
-        "Fast-track into elite healthcare informatics, Clinical Documentation Improvement (CDI), and Medical Auditing (CPMA®) where clinical diagnostic judgment commands top industry remuneration.",
-      careerPath: "Clinical Documentation Specialist → Compliance Auditor → Medical Director",
-      avgSalary: "₹5.5L – ₹8.5L CTC starting",
+        "Fast-track into healthcare informatics, Clinical Documentation Improvement (CDI), and Medical Auditing (CPMA®) where clinical diagnostic judgment commands industry respect.",
+      careerPath: "Clinical Documentation Specialist → Compliance Auditor → HIM Director",
+      careerTrack: "Clinical Audit Track",
       badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
       iconBg: "bg-amber-600 text-white",
     },
@@ -98,7 +98,7 @@ export function WhoMcoaHelps() {
                       {aud.badge}
                     </span>
                     <span className="text-xs font-bold text-gray-700 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-lg">
-                      {aud.avgSalary}
+                      {aud.careerTrack}
                     </span>
                   </div>
 

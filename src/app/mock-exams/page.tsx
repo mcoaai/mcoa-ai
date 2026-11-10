@@ -55,24 +55,37 @@ export default function MockExamEnginePage() {
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [scoreReport, setScoreReport] = useState<any>(null);
+  const [examError, setExamError] = useState<string | null>(null);
+
+  const fetchExam = async () => {
+    try {
+      setLoading(true);
+      setExamError(null);
+      const res = await fetch("/api/mock-exams?slug=cpc-diagnostic-sprint-2026");
+      if (!res.ok) {
+        throw new Error(`Failed to load mock exam: HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.success && data.exam) {
+        setExam(data.exam);
+        const qList = data.exam.questions || [];
+        setQuestions(qList);
+        setTimeLeft((data.exam.durationMinutes || 30) * 60);
+        if (qList.length === 0) {
+          setExamError("No questions are currently published for this diagnostic sprint.");
+        }
+      } else {
+        throw new Error(data.error || "Unable to retrieve exam questions.");
+      }
+    } catch (err: any) {
+      console.error("Error loading exam:", err);
+      setExamError(err.message || "Failed to load diagnostic exam. Please check your network and retry.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    async function fetchExam() {
-      try {
-        setLoading(true);
-        const res = await fetch("/api/mock-exams?slug=cpc-diagnostic-sprint-2026");
-        const data = await res.json();
-        if (data.success && data.exam) {
-          setExam(data.exam);
-          setQuestions(data.exam.questions || []);
-          setTimeLeft((data.exam.durationMinutes || 30) * 60);
-        }
-      } catch (err) {
-        console.error("Error loading exam:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
     fetchExam();
   }, []);
 
@@ -184,6 +197,38 @@ export default function MockExamEnginePage() {
     );
   }
 
+  if (examError || questions.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#F8F9FC] py-16 px-4 flex items-center justify-center font-inter">
+        <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-royal max-w-md w-full text-center space-y-4">
+          <div className="w-12 h-12 bg-amber-50 text-mcoa-gold rounded-full flex items-center justify-center mx-auto border border-mcoa-gold/40">
+            <HelpCircle className="w-6 h-6" />
+          </div>
+          <h2 className="text-lg font-bold font-montserrat text-mcoa-midnight">
+            Mock Exam Content Unavailable
+          </h2>
+          <p className="text-xs text-gray-600 leading-relaxed">
+            {examError || "The diagnostic test questions could not be loaded at this time. Please retry or contact academic support."}
+          </p>
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
+            <button
+              onClick={fetchExam}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold bg-mcoa-gold text-mcoa-midnight hover:bg-[#e0b760] transition font-montserrat"
+            >
+              Retry Loading Exam
+            </button>
+            <Link
+              href="/practice"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
+            >
+              Return to Practice Tools
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#F8F9FC] min-h-screen py-8 font-inter">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -200,6 +245,14 @@ export default function MockExamEnginePage() {
           <span className="text-[10px] uppercase font-bold text-gray-400 font-mono">
             AAPC CPC® & AHIMA CCS® DIAGNOSTIC SIMULATION
           </span>
+        </div>
+
+        {/* AAPC / AHIMA Credentialing & Original Content Disclaimer */}
+        <div className="p-3.5 rounded-2xl bg-white border border-mcoa-amethyst/30 shadow-xs flex items-center space-x-3 text-xs text-gray-600">
+          <ShieldCheck className="w-5 h-5 text-mcoa-gold shrink-0" />
+          <p className="text-[11px] leading-tight">
+            <strong>Official Certification Notice:</strong> AAPC® (CPC®) and AHIMA® (CCS®) are registered trademarks of their respective organizations. MCOA provides independent preparatory diagnostic simulations. Professional certifications are issued exclusively by AAPC or AHIMA to candidates who pass official examinations. All questions are original synthetic educational materials.
+          </p>
         </div>
 
         {/* Diagnostic Score Report (Displayed if exam is submitted) */}

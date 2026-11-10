@@ -130,11 +130,17 @@ export function VerifiedProof() {
           ))}
         </div>
 
-        {/* Academic Verification Notice */}
-        <div className="mt-12 bg-white rounded-2xl p-5 border border-mcoa-amethyst/20 shadow-sm flex items-start space-x-3 text-xs text-gray-600">
-          <ShieldCheck className="w-5 h-5 text-mcoa-amethyst shrink-0 mt-0.5" />
+        {/* Academic Verification & Corporate Hiring Notice */}
+        <div className="mt-12 bg-white rounded-2xl p-6 border border-mcoa-amethyst/30 shadow-sm space-y-2 text-xs text-gray-600">
+          <div className="flex items-center space-x-2 text-mcoa-midnight font-bold font-montserrat">
+            <ShieldCheck className="w-5 h-5 text-mcoa-gold shrink-0" />
+            <span>Academic Integrity & Corporate Hiring Network Notice</span>
+          </div>
           <p className="leading-relaxed">
-            <strong>Official Educator Verification Notice:</strong> All placement records, certification pass rates (94%+), and student testimonials are documented by MCOA's academic counseling board. MCOA does not promise unearned guarantees; placement success is achieved through strict student participation, attendance, and chart mastery drills.
+            <strong>Hiring & Placement Transparency:</strong> The healthcare organizations listed above represent corporate employers where MCOA trained candidates have been interviewed, offered positions, or recruited. MCOA operates as an independent professional training institution and does not claim official agency, sponsorship, or corporate affiliation with these independent employers.
+          </p>
+          <p className="leading-relaxed pt-1 text-[11px] text-gray-500">
+            <strong>Credentialing Distinction:</strong> MCOA delivers preparatory education. Official AAPC® (CPC®, CRC®, CPMA®) and AHIMA® (CCS®) credentials are awarded solely by those governing organizations following their independent examination procedures.
           </p>
         </div>
 

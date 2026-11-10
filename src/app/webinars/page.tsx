@@ -150,7 +150,7 @@ END:VCALENDAR`;
             <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-white/80 pt-2">
               <div className="flex items-center space-x-1.5">
                 <Calendar className="w-4 h-4 text-mcoa-gold" />
-                <span>Upcoming Sunday</span>
+                <span>Date to be announced (Next Batch Schedule)</span>
               </div>
               <div className="flex items-center space-x-1.5">
                 <Clock className="w-4 h-4 text-mcoa-gold" />
